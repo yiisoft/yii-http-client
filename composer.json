@@ -2,7 +2,7 @@
     "name": "yiisoft/yii-http-client",
     "description": "Yii Framework HTTP client extension",
     "keywords": ["yii", "http", "httpclient", "curl"],
-    "type": "yii2-extension",
+    "type": "library",
     "license": "BSD-3-Clause",
     "support": {
         "issues": "https://github.com/yiisoft/yii-http-client/issues",
@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "yiisoft/core": "1.0.x-dev"
+        "yiisoft/core": "^1.0"
     },
     "autoload": {
         "psr-4": {"yii\\httpclient\\": "src"}
