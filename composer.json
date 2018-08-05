@@ -1,15 +1,15 @@
 {
     "name": "yiisoft/yii2-httpclient",
-    "description": "HTTP client extension for the Yii framework",
-    "keywords": ["yii2", "http", "httpclient", "curl"],
+    "description": "Yii Framework HTTP client extension",
+    "keywords": ["yii", "http", "httpclient", "curl"],
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/yiisoft/yii2-httpclient/issues",
+        "issues": "https://github.com/yiisoft/yii-http-client/issues",
         "forum": "http://www.yiiframework.com/forum/",
         "wiki": "http://www.yiiframework.com/wiki/",
         "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2-httpclient"
+        "source": "https://github.com/yiisoft/yii-http-client"
     },
     "authors": [
         {
@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "3.0.x-dev"
+        "yiisoft/core": "1.0.x-dev"
     },
     "autoload": {
         "psr-4": {"yii\\httpclient\\": "src"}
@@ -28,7 +28,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "1.0.x-dev"
         }
     }
 }
