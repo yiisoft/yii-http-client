@@ -1,8 +1,7 @@
 イベント
 ========
 
-[[\yii\httpclient\Request]] は、いくつかのイベントを提供します。
-それらは、イベントハンドラまたはビヘイビアによって処理することが出来ます。
+[[\yii\httpclient\Request]] は、いくつかのイベントを提供します。それらは、イベントハンドラまたはビヘイビアによって処理することが出来ます。
 
 - [[\yii\httpclient\Request::EVENT_BEFORE_SEND]] - リクエスト送信の前に発生。
 - [[\yii\httpclient\Request::EVENT_AFTER_SEND]] - リクエスト送信の後に発生。
@@ -18,33 +17,36 @@ use yii\httpclient\RequestEvent;
 $client = new Client();
 
 $request = $client->createRequest()
-    ->setMethod('get')
+    ->setMethod('GET')
     ->setUrl('http://api.domain.com')
-    ->setData(['param' => 'value']);
+    ->setParams(['param' => 'value']);
 
 // 最終的なデータセットに基づくシグニチャの生成を保証する
 $request->on(Request::EVENT_BEFORE_SEND, function (RequestEvent $event) {
-    $data = $event->request->getData();
+    $params = $event->request->getParams();
 
-    $signature = md5(http_build_query($data));
-    $data['signature'] = $signature;
+    $signature = md5(http_build_query($params));
+    $params['signature'] = $signature;
 
-    $event->request->setData($data);
+    $event->request->setParams($params);
 });
 
 // レスポンスデータを正規化する
 $request->on(Request::EVENT_AFTER_SEND, function (RequestEvent $event) {
-    $data = $event->response->getData();
+    $data = $event->response->getParsedBody();
 
     $data['content'] = base64_decode($data['encoded_content']);
 
-    $event->response->setData($data);
+    $event->response->getParsedBody($data);
 });
 
 $response = $request->send();
 ```
 
-[[\yii\httpclient\Request]] のインスタンスにイベントハンドラをアタッチするのは、あまり現実的ではありません。
+> Warning: `with*()` で始まる PSR-7 のインタフェイス・メソッドは不変オブジェクト性を維持するためにオブジェクトのクローンを作成します。
+  そのため、新たにクローンしたオブジェクトから、アタッチされたビヘイビアやイベント・ハンドラをはぎ取ります。
+
+[[\yii\httpclient\Request]] のインスタンスにイベント・ハンドラをアタッチするのは、あまり現実的ではありません。
 同じユースケースは、[[\yii\httpclient\Client]] クラスのイベントを使って処理することが出来ます。
 
 - [[\yii\httpclient\Client::EVENT_BEFORE_SEND]] - リクエスト送信の前に発生。

@@ -1,10 +1,10 @@
-�}���`�p�[�g�R���e���g
+マルチパートコンテント
 ======================
 
-HTTP �̃��b�Z�[�W�R���e���g�́A�R���e���g�^�C�v�̈قȂ邢�����̕������琬��ꍇ������܂��B
-�ʏ�A�t�@�C���̃A�b�v���[�h�����N�G�X�g����ꍇ�ɁA���ꂪ�K�v�ɂȂ�܂��B
-[[\yii\httpclient\Request]] �� `addContent()`�A`addFile()` �܂���`addFileContent()` ���\�b�h���g���āA�}���`�p�[�g�̃R���e���g���쐬���邱�Ƃ��o���܂��B
-�Ⴆ�΁A�E�F�u�t�H�[�����g���t�@�C���̃A�b�v���[�h���G�~�����[�g�������ꍇ�́A���̂悤�ȃR�[�h���g�p���鎖���o���܂��B
+HTTP のメッセージコンテントは、コンテントタイプの異なるいくつかの部分から成る場合があります。
+通常、ファイルのアップロードをリクエストする場合に、それが必要になります。
+[[\yii\httpclient\Request]] の `addBodyPart()`、`addFile()` または`addFileContent()` メソッドを使って、マルチパートのコンテントを作成することが出来ます。
+例えば、ウェブフォームを使うファイルのアップロードをエミュレートしたい場合は、次のようなコードを使用する事が出来ます。
 
 ```php
 use yii\httpclient\Client;
@@ -17,8 +17,10 @@ $response = $client->createRequest()
     ->send();
 ```
 
-���N�G�X�g���}���`�p�[�g�ł���ƃ}�[�N����Ă���ꍇ�ł����Ă��A[[\yii\httpclient\Request::data]] ���w�肳��Ă���ꍇ�́A���̒l���R���e���g�̈ꕔ�Ƃ��Ď����I�ɑ��M����܂��B
-�Ⴆ�΁A���̂悤�ȃt�H�[���̑��M���G�~�����[�g�������Ɖ��肵�܂��傤�B
+リクエストがマルチパートであるとマークされている場合であっても、[[\yii\httpclient\Request::$params]] が指定されている場合は、
+その値がコンテントの一部として自動的に送信されます。
+例えば、次のようなフォームの送信をエミュレートしたいと仮定しましょう。
+
 ```html
 <form name="profile-form" method="post" action="http://domain.com/user/profile" enctype="multipart/form-data">
     <input type="text" name="username" value="">
@@ -28,7 +30,7 @@ $response = $client->createRequest()
 </form>
 ```
 
-����́A���̂悤�ȃR�[�h���g���Ď��s���邱�Ƃ��o���܂��B
+これは、次のようなコードを使って実行することが出来ます。
 
 ```php
 use yii\httpclient\Client;
@@ -37,10 +39,26 @@ $client = new Client();
 $response = $client->createRequest()
     ->setMethod('post')
     ->setUrl('http://domain.com/user/profile')
-    ->setData([
+    ->setParams([
         'username' => 'johndoe',
         'email' => 'johndoe@domain.com',
     ])
     ->addFile('avatar', '/path/to/source/image.jpg')
+    ->send();
+```
+
+複数のファイルを同じ名前で添付すると、最後のファイルが他のファイルを上書きすることに注意して下さい。
+添付ファイルについて表形式入力のインデックスがあり得る場合は、自分で制御しなければなりません。例えば、
+
+```php
+use yii\httpclient\Client;
+
+$client = new Client();
+$response = $client->createRequest()
+    ->setMethod('POST')
+    ->setUrl('http://domain.com/gallery')
+    ->addFile('avatar[0]', '/path/to/source/image1.jpg')
+    ->addFile('avatar[1]', '/path/to/source/image2.jpg')
+    ...
     ->send();
 ```

@@ -1,11 +1,14 @@
-Šî–{“I‚ÈŽg—p•û–@
+åŸºæœ¬çš„ãªä½¿ç”¨æ–¹æ³•
 ================
 
-HTTP ƒŠƒNƒGƒXƒg‚ð‘—M‚·‚é‚½‚ß‚É‚ÍA[[\yii\httpclient\Client]] ‚ðƒCƒ“ƒXƒ^ƒ“ƒX‰»‚µ‚ÄA‚»‚Ì `createRequest()`
-ƒƒ\ƒbƒh‚ðŽg‚Á‚ÄAHTTP ƒŠƒNƒGƒXƒg‚ðì¬‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B
-ŽŸ‚ÉA‚ ‚È‚½‚Ì–Ú“I‚É]‚Á‚ÄƒŠƒNƒGƒXƒg‚Ì‘S‚Ä‚Ìƒpƒ‰ƒ[ƒ^‚ð\¬‚µ‚ÄAƒŠƒNƒGƒXƒg‚ð‘—M‚µ‚Ü‚·B
-Œ‹‰Ê‚Æ‚µ‚ÄA‚ ‚È‚½‚ÍAƒŒƒXƒ|ƒ“ƒX‚Ì‘S‚Ä‚Ìî•ñ‚Æƒf[ƒ^‚ð•ÛŽ‚·‚é [[\yii\httpclient\Response]] ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ðŽó‚¯Žæ‚é‚±‚Æ‚É‚È‚è‚Ü‚·B
-—á‚¦‚ÎA
+ã“ã®ã‚¨ã‚¯ã‚¹ãƒ†ãƒ³ã‚·ãƒ§ãƒ³ã¯ [PSR-7 HTTP ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æ¨™æº–](https://www.php-fig.org/psr/psr-7/) ã¨äº’æ›ã§ã™ã€‚
+ã“ã®ã‚¨ã‚¯ã‚¹ãƒ†ãƒ³ã‚·ãƒ§ãƒ³ã‚’ä½¿ã†å‰ã«ã€å¿…ãšã€ã“ã®æ¨™æº–ã«ã‚ˆã£ã¦å°Žå…¥ã•ã‚ŒãŸè«¸æ¦‚å¿µã«æ…£ã‚Œè¦ªã—ã‚“ã§ãŠã„ã¦ä¸‹ã•ã„ã€‚
+
+HTTP ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’é€ä¿¡ã™ã‚‹ãŸã‚ã«ã¯ã€[[\yii\httpclient\Client]] ã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã—ã¦ã€ãã® `createRequest()`
+ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ä½¿ã£ã¦ã€HTTP ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’ä½œæˆã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚
+æ¬¡ã«ã€ã‚ãªãŸã®ç›®çš„ã«å¾“ã£ã¦ãƒªã‚¯ã‚¨ã‚¹ãƒˆã®å…¨ã¦ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’æ§‹æˆã—ã¦ã€ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’é€ä¿¡ã—ã¾ã™ã€‚
+çµæžœã¨ã—ã¦ã€ã‚ãªãŸã¯ã€ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã®å…¨ã¦ã®æƒ…å ±ã¨ãƒ‡ãƒ¼ã‚¿ã‚’ä¿æŒã™ã‚‹ [[\yii\httpclient\Response]] ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å—ã‘å–ã‚‹ã“ã¨ã«ãªã‚Šã¾ã™ã€‚
+ä¾‹ãˆã°ã€
 
 ```php
 use yii\httpclient\Client;
@@ -14,18 +17,18 @@ $client = new Client();
 $response = $client->createRequest()
     ->setMethod('post')
     ->setUrl('http://example.com/api/1.0/users')
-    ->setData(['name' => 'John Doe', 'email' => 'johndoe@example.com'])
+    ->setParams(['name' => 'John Doe', 'email' => 'johndoe@example.com'])
     ->send();
 if ($response->isOk) {
-    $newUserId = $response->data['id'];
+    $newUserId = $response->parsedBody['id'];
 }
 ```
 
-V‚µ‚¢ƒŠƒNƒGƒXƒg‚ð€”õ‚·‚éì‹Æ‚ð’Pƒ‰»‚·‚é‚½‚ß‚ÉA`get()`A`post()`A`put()` ‚È‚Ç‚ÌƒVƒ‡[ƒgƒJƒbƒgƒƒ\ƒbƒh‚ðŽg‚Á‚Ä‚à\‚¢‚Ü‚¹‚ñB
-“¯ˆê‚ÌƒhƒƒCƒ“‚É‘Î‚µ‚Ä•¡”‚ÌƒŠƒNƒGƒXƒg‚ð‘—M‚·‚éê‡ (—á‚¦‚Î REST API Žg—p‚·‚éê‡) ‚ÍA
-’Pˆê‚Ì [[\yii\httpclient\Client]] ƒCƒ“ƒXƒ^ƒ“ƒX‚ðŽg‚Á‚ÄA‚»‚Ì `baseUrl` ƒvƒƒpƒeƒB‚É‚»‚ÌƒhƒƒCƒ“‚ðÝ’è‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
-‚»‚Ì‚æ‚¤‚É‚·‚é‚ÆAV‚µ‚¢ƒŠƒNƒGƒXƒg‚ðì¬‚·‚é‚Æ‚«‚ÉA‘Š‘Î URL ‚¾‚¯‚ðŽw’è‚·‚é‚±‚Æ‚ªo—ˆ‚é‚æ‚¤‚É‚È‚è‚Ü‚·B
-]‚Á‚ÄA‰½‚ç‚©‚Ì REST API ‚É‘Î‚·‚é”ŒÂ‚ÌƒŠƒNƒGƒXƒg‚ÍA‰º‹L‚Ì‚æ‚¤‚É‘‚­‚±‚Æ‚ªo—ˆ‚Ü‚·B
+æ–°ã—ã„ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’æº–å‚™ã™ã‚‹ä½œæ¥­ã‚’å˜ç´”åŒ–ã™ã‚‹ãŸã‚ã«ã€`get()`ã€`post()`ã€`put()` ãªã©ã®ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆãƒ¡ã‚½ãƒƒãƒ‰ã‚’ä½¿ã£ã¦ã‚‚æ§‹ã„ã¾ã›ã‚“ã€‚
+åŒä¸€ã®ãƒ‰ãƒ¡ã‚¤ãƒ³ã«å¯¾ã—ã¦è¤‡æ•°ã®ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’é€ä¿¡ã™ã‚‹å ´åˆ (ä¾‹ãˆã° REST API ä½¿ç”¨ã™ã‚‹å ´åˆ) ã¯ã€
+å˜ä¸€ã® [[\yii\httpclient\Client]] ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½¿ã£ã¦ã€ãã® `baseUrl` ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ãã®ãƒ‰ãƒ¡ã‚¤ãƒ³ã‚’è¨­å®šã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
+ãã®ã‚ˆã†ã«ã™ã‚‹ã¨ã€æ–°ã—ã„ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’ä½œæˆã™ã‚‹ã¨ãã«ã€ç›¸å¯¾ URL ã ã‘ã‚’æŒ‡å®šã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã‚‹ã‚ˆã†ã«ãªã‚Šã¾ã™ã€‚
+å¾“ã£ã¦ã€ä½•ã‚‰ã‹ã® REST API ã«å¯¾ã™ã‚‹æ•°å€‹ã®ãƒªã‚¯ã‚¨ã‚¹ãƒˆã¯ã€ä¸‹è¨˜ã®ã‚ˆã†ã«æ›¸ãã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
 
 ```php
 use yii\httpclient\Client;
@@ -38,19 +41,20 @@ $client->post('subscriptions', ['user_id' => $newUserResponse->data['id'], 'arti
 ```
 
 
-## ‚³‚Ü‚´‚Ü‚ÈƒRƒ“ƒeƒ“ƒgŒ`Ž®‚ðŽg‚¤
+## ã•ã¾ã–ã¾ãªã‚³ãƒ³ãƒ†ãƒ³ãƒˆå½¢å¼ã‚’ä½¿ã†
 
-ƒfƒtƒHƒ‹ƒg‚Å‚ÍAHTTP ƒŠƒNƒGƒXƒgƒf[ƒ^‚Í 'form-urlencoded'A—á‚¦‚ÎA`param1=value1&param2=value2` ‚Æ‚µ‚Ä‘—M‚³‚ê‚Ü‚·B
-‚±‚ê‚ÍƒEƒFƒuƒtƒH[ƒ€‚Å‚Íˆê”Ê“I‚ÈŒ`Ž®‚Å‚·‚ªAREST API ‚É‚Æ‚Á‚Ä‚Í‚»‚¤‚Å‚Í‚È‚­A’Êí‚ÍƒRƒ“ƒeƒ“ƒg‚ª JSON ‚Ü‚½‚Í XML ‚ÌŒ`Ž®‚Å‚ ‚é‚±‚Æ‚ª—v‹‚³‚ê‚Ü‚·B
-ƒŠƒNƒGƒXƒgƒRƒ“ƒeƒ“ƒg‚ÉŽg—p‚³‚ê‚éŒ`Ž®‚ÍA`format` ƒvƒƒpƒeƒB‚Ü‚½‚Í `setFormat()` ƒƒ\ƒbƒh‚ðŽg—p‚µ‚ÄÝ’è‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
-‰º‹L‚ÌŒ`Ž®‚ªƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚·B
+ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ã¯ã€HTTP ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿ã¯ 'form-urlencoded'ã€ä¾‹ãˆã°ã€`param1=value1&param2=value2` ã¨ã—ã¦é€ä¿¡ã•ã‚Œã¾ã™ã€‚
+ã“ã‚Œã¯ã‚¦ã‚§ãƒ–ãƒ•ã‚©ãƒ¼ãƒ ã§ã¯ä¸€èˆ¬çš„ãªå½¢å¼ã§ã™ãŒã€REST API ã«ã¨ã£ã¦ã¯ãã†ã§ã¯ãªãã€
+é€šå¸¸ã¯ã‚³ãƒ³ãƒ†ãƒ³ãƒˆãŒ JSON ã¾ãŸã¯ XML ã®å½¢å¼ã§ã‚ã‚‹ã“ã¨ãŒè¦æ±‚ã•ã‚Œã¾ã™ã€‚
+ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚³ãƒ³ãƒ†ãƒ³ãƒˆã«ä½¿ç”¨ã•ã‚Œã‚‹å½¢å¼ã¯ã€`format` ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã¾ãŸã¯ `setFormat()` ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ä½¿ç”¨ã—ã¦è¨­å®šã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
+ä¸‹è¨˜ã®å½¢å¼ãŒã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã™ã€‚
 
- - [[\yii\httpclient\Client::FORMAT_JSON]] - JSON Œ`Ž®
- - [[\yii\httpclient\Client::FORMAT_URLENCODED]] - RFC1738 ‚É‚æ‚Á‚Ä urlencode ‚³‚ê‚½ƒNƒGƒŠ•¶Žš—ñ
- - [[\yii\httpclient\Client::FORMAT_RAW_URLENCODED]] - PHP_QUERY_RFC3986 ‚É‚æ‚Á‚Ä urlencode ‚³‚ê‚½ƒNƒGƒŠ•¶Žš—ñ
- - [[\yii\httpclient\Client::FORMAT_XML]] - XML Œ`Ž®
+ - [[\yii\httpclient\Client::FORMAT_JSON]] - JSON å½¢å¼
+ - [[\yii\httpclient\Client::FORMAT_URLENCODED]] - RFC1738 ã«ã‚ˆã£ã¦ urlencode ã•ã‚ŒãŸã‚¯ã‚¨ãƒªæ–‡å­—åˆ—
+ - [[\yii\httpclient\Client::FORMAT_RAW_URLENCODED]] - PHP_QUERY_RFC3986 ã«ã‚ˆã£ã¦ urlencode ã•ã‚ŒãŸã‚¯ã‚¨ãƒªæ–‡å­—åˆ—
+ - [[\yii\httpclient\Client::FORMAT_XML]] - XML å½¢å¼
 
-—á‚¦‚ÎA
+ä¾‹ãˆã°ã€
 
 ```php
 use yii\httpclient\Client;
@@ -59,7 +63,7 @@ $client = new Client(['baseUrl' => 'http://example.com/api/1.0']);
 $response = $client->createRequest()
     ->setFormat(Client::FORMAT_JSON)
     ->setUrl('articles/search')
-    ->setData([
+    ->setParams([
         'query_string' => 'Yii',
         'filter' => [
             'date' => ['>' => '2015-08-01']
@@ -68,46 +72,70 @@ $response = $client->createRequest()
     ->send();
 ```
 
-ƒŒƒXƒ|ƒ“ƒXƒIƒuƒWƒFƒNƒg‚ÍA'Content-Type' ƒwƒbƒ_‚ÆƒRƒ“ƒeƒ“ƒgŽ©‘Ì‚ÉŠî‚Ã‚¢‚ÄAƒRƒ“ƒeƒ“ƒgŒ`Ž®‚ðŽ©“®“I‚ÉŒŸo‚µ‚Ü‚·B
-]‚Á‚ÄA‚Ù‚Æ‚ñ‚Ç‚Ìê‡ƒŒƒXƒ|ƒ“ƒX‚ÌŒ`Ž®‚ðŽw’è‚·‚é•K—v‚Í‚È‚­A’Pƒ‚É `getData()` ƒƒ\ƒbƒh‚Ü‚½‚Í `data` ƒvƒƒpƒeƒB‚ðŽg‚¦‚ÎAƒŒƒXƒ|ƒ“ƒX‚ð‰ðÍ‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
-ã‹L‚Ì—á‚Ì‘±‚«‚Æ‚µ‚ÄAƒŒƒXƒ|ƒ“ƒXƒf[ƒ^‚ðŽæ“¾‚·‚é‚É‚ÍŽŸ‚Ì‚æ‚¤‚É‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
+ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯ã€'Content-Type' ãƒ˜ãƒƒãƒ€ã¨ã‚³ãƒ³ãƒ†ãƒ³ãƒˆè‡ªä½“ã«åŸºã¥ã„ã¦ã€ã‚³ãƒ³ãƒ†ãƒ³ãƒˆå½¢å¼ã‚’è‡ªå‹•çš„ã«æ¤œå‡ºã—ã¾ã™ã€‚
+å¾“ã£ã¦ã€ã»ã¨ã‚“ã©ã®å ´åˆãƒ¬ã‚¹ãƒãƒ³ã‚¹ã®å½¢å¼ã‚’æŒ‡å®šã™ã‚‹å¿…è¦ã¯ãªãã€å˜ç´”ã« `getData()` ãƒ¡ã‚½ãƒƒãƒ‰ã¾ãŸã¯ `data` ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ä½¿ãˆã°ã€ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã‚’è§£æžã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
+ä¸Šè¨˜ã®ä¾‹ã®ç¶šãã¨ã—ã¦ã€ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹ã«ã¯æ¬¡ã®ã‚ˆã†ã«ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
 
 ```php
-$responseData = $response->getData(); // ‘S‚Ä‚Ì‹LŽ–‚ðŽæ“¾
-count($response->data) // ‹LŽ–‚Ì”‚ðŽæ“¾
-$article = $response->data[0] // Å‰‚Ì‹LŽ–‚ðŽæ“¾
+$responseData = $response->getParsedBody(); // å…¨ã¦ã®è¨˜äº‹ã‚’å–å¾—
+count($response->parsedBody) // è¨˜äº‹ã®æ•°ã‚’å–å¾—
+$article = $response->parsedBody[0] // æœ€åˆã®è¨˜äº‹ã‚’å–å¾—
 ```
 
 
-## ¶‚ÌƒRƒ“ƒeƒ“ƒg‚ðˆµ‚¤
+## ç”Ÿã®ã‚³ãƒ³ãƒ†ãƒ³ãƒˆã‚’æ‰±ã†
 
-’N‚à‚ ‚È‚½‚É‘Î‚µ‚Ä“à‘ ‚³‚ê‚½Œ`Ž®‚ÉˆË‘¶‚·‚é‚±‚Æ‚ð‹­§‚·‚é‚à‚Ì‚Å‚Í‚ ‚è‚Ü‚¹‚ñB
-HTTP ƒŠƒNƒGƒXƒg‚É¶‚ÌƒRƒ“ƒeƒ“ƒg‚ðŽg—p‚·‚éŽ–‚àAƒŒƒXƒ|ƒ“ƒX‚Ì¶‚ÌƒRƒ“ƒeƒ“ƒg‚ðˆ—‚·‚é‚±‚Æ‚à‰Â”\‚Å‚·B
-—á‚¦‚ÎA
+å†…è”µã•ã‚ŒãŸå½¢å¼ã«ä¾å­˜ã™ã‚‹ã“ã¨ã‚’èª°ã‚‚ã‚ãªãŸã«å¯¾ã—ã¦å¼·åˆ¶ã™ã‚‹ã‚‚ã®ã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚HTTP ãƒªã‚¯ã‚¨ã‚¹ãƒˆã«ç”Ÿã®ã‚³ãƒ³ãƒ†ãƒ³ãƒˆã‚’ä½¿ç”¨ã™ã‚‹äº‹ã‚‚ã€
+ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã®ç”Ÿã®ã‚³ãƒ³ãƒ†ãƒ³ãƒˆã‚’ PSR-7 ã®ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚’ä½¿ã£ã¦å‡¦ç†ã™ã‚‹ã“ã¨ã‚‚å¯èƒ½ã§ã™ã€‚ä¾‹ãˆã°ã€
+
+```php
+use yii\httpclient\Client;
+use yii\http\MemoryStream;
+
+$client = new Client(['baseUrl' => 'http://example.com/api/1.0']);
+
+$body = new MemoryStream();
+$body->write('{query_string: "Yii"}');
+
+$response = $client->createRequest()
+    ->setUrl('articles/search')
+    ->addHeaders(['content-type' => 'application/json'])
+    ->setBody($body)
+    ->send();
+
+echo 'Search results:<br>';
+echo $response->getBody();
+```
+
+[[\yii\httpclient\Request]] ã¯ã€`content` ãŒè¨­å®šã•ã‚Œã¦ã„ãªã„å ´åˆã«ã ã‘ã€æŒ‡å®šã•ã‚ŒãŸ `params` ã‚’ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆã—ã¾ã™ã€‚
+[[\yii\httpclient\Response]] ã¯ã€`parseBody` ãŒè¦æ±‚ã•ã‚ŒãŸå ´åˆã«ã ã‘ã€`body` ã‚’è§£æžã—ã¾ã™ã€‚
+
+ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ã¯ [[\yii\httpclient\Request]] ã¯ [[\yii\http\MemoryStream]] ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã«ã‚ˆã£ã¦ãƒœãƒ‡ã‚£ã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã—ã¾ã™ã€‚
+å¾“ã£ã¦ã€`getBody()` ã‚’ä½¿ã†ã¨ã€æ–°ã—ãä½œæˆã•ã‚ŒãŸãƒªã‚¯ã‚¨ã‚¹ãƒˆã‹ã‚‰ç©ºã®ãƒœãƒ‡ã‚£ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚ä¾‹ãˆã°ã€
 
 ```php
 use yii\httpclient\Client;
 
 $client = new Client(['baseUrl' => 'http://example.com/api/1.0']);
-$response = $client->createRequest()
-    ->setUrl('articles/search')
-    ->addHeaders(['content-type' => 'application/json'])
-    ->setContent('{query_string: "Yii"}')
-    ->send();
 
-echo 'Search results:<br>';
-echo $response->content;
+$request = $client->createRequest()
+    ->setUrl('articles/search')
+    ->addHeaders(['content-type' => 'application/json']);
+
+$request->getBody() // ç©ºã®ãƒœãƒ‡ã‚£ã‚’è¿”ã™
+    ->write('{query_string: "Yii"}'); // ãƒœãƒ‡ã‚£ã®ã‚³ãƒ³ãƒ†ãƒ³ãƒˆã‚’è¨­å®š
+
+$response = $request->send();
 ```
 
-[[\yii\httpclient\Request]] ‚ÍA`content` ‚ªÝ’è‚³‚ê‚Ä‚¢‚È‚¢ê‡‚É‚¾‚¯AŽw’è‚³‚ê‚½ `data` ‚ðƒtƒH[ƒ}ƒbƒg‚µ‚Ü‚·B
-[[\yii\httpclient\Response]] ‚ÍA`data` ‚ð—v‹‚µ‚½ê‡‚É‚¾‚¯A`content` ‚ð‰ðÍ‚µ‚Ü‚·B
 
+## ãƒªã‚¯ã‚¨ã‚¹ãƒˆã¨ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’äº‹å‰ã«æ§‹æˆã™ã‚‹
 
-## ƒŠƒNƒGƒXƒg‚ÆƒŒƒXƒ|ƒ“ƒX‚ÌƒIƒuƒWƒFƒNƒg‚ðŽ–‘O‚É\¬‚·‚é
-
-‚¢‚­‚Â‚©‚ÌŽ—‚½‚æ‚¤‚ÈƒŠƒNƒGƒXƒg‚ð’Pˆê‚Ì [[\yii\httpclient\Client]] ƒCƒ“ƒXƒ^ƒ“ƒX‚ðŽg‚Á‚Äˆ—‚·‚éê‡A—á‚¦‚Î REST API ‚ðˆµ‚¤‚æ‚¤‚Èê‡‚ÍAƒŠƒNƒGƒXƒg‚ÆƒŒƒXƒ|ƒ“ƒX‚ÌƒIƒuƒWƒFƒNƒg‚Ì‚½‚ß‚É‚ ‚È‚½Ž©g‚Ì\¬î•ñ‚ðéŒ¾‚·‚é‚±‚Æ‚É‚æ‚Á‚ÄAƒR[ƒh‚ð’Pƒ‰»‚µ‚Ä‚‘¬‰»‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
-‚»‚Ì‚½‚ß‚É‚ÍA[[\yii\httpclient\Client]] ‚Ì `requestConfig` ‚¨‚æ‚Ñ `responsConfig` ‚ÌƒtƒB[ƒ‹ƒh‚ðŽg—p‚µ‚Ü‚·B
-—á‚¦‚ÎA“Á’è‚ÌƒNƒ‰ƒCƒAƒ“ƒg‚É‚æ‚Á‚Äì¬‚³‚ê‚é‘S‚Ä‚ÌƒŠƒNƒGƒXƒg‚É‘Î‚µ‚Ä JSON Œ`Ž®‚ðƒZƒbƒgƒAƒbƒv‚µ‚½‚¢ê‡‚ÍAŽŸ‚Ì‚æ‚¤‚É‚µ‚Ü‚·B
+ã„ãã¤ã‹ã®ä¼¼ãŸã‚ˆã†ãªãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’å˜ä¸€ã® [[\yii\httpclient\Client]] ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½¿ã£ã¦å‡¦ç†ã™ã‚‹å ´åˆã€
+ä¾‹ãˆã° REST API ã‚’æ‰±ã†ã‚ˆã†ãªå ´åˆã¯ã€ãƒªã‚¯ã‚¨ã‚¹ãƒˆã¨ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãŸã‚ã«ã‚ãªãŸè‡ªèº«ã®æ§‹æˆæƒ…å ±ã‚’å®£è¨€ã™ã‚‹ã“ã¨ã«ã‚ˆã£ã¦ã€
+ã‚³ãƒ¼ãƒ‰ã‚’å˜ç´”åŒ–ã—ã¦é«˜é€ŸåŒ–ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
+ãã®ãŸã‚ã«ã¯ã€[[\yii\httpclient\Client]] ã® `requestConfig` ãŠã‚ˆã³ `responsConfig` ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ä½¿ç”¨ã—ã¾ã™ã€‚
+ä¾‹ãˆã°ã€ç‰¹å®šã®ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã«ã‚ˆã£ã¦ä½œæˆã•ã‚Œã‚‹å…¨ã¦ã®ãƒªã‚¯ã‚¨ã‚¹ãƒˆã«å¯¾ã—ã¦ JSON å½¢å¼ã‚’ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã—ãŸã„å ´åˆã¯ã€æ¬¡ã®ã‚ˆã†ã«ã—ã¾ã™ã€‚
 
 ```php
 use yii\httpclient\Client;
@@ -123,17 +151,17 @@ $client = new Client([
 ]);
 
 $request = $client->createRequest();
-echo $request->format; // o—Í: 'json'
+echo $request->format; // å‡ºåŠ›: 'json'
 ```
 
-> Tip: ‰½‚ç‚©‚Ì’Ç‰Á‚Ì‹@”\‚ð—˜—p‚·‚é‚½‚ß‚ÉA\¬î•ñ”z—ñ‚Ì 'class' ƒL[‚ðŽg‚Á‚ÄAƒŠƒNƒGƒXƒg‚ÆƒŒƒXƒ|ƒ“ƒX‚ÌƒIƒuƒWƒFƒNƒg‚É‚ ‚È‚½Ž©g‚ÌƒNƒ‰ƒX‚ðŽw’è‚·‚é‚±‚Æ‚à‰Â”\‚Å‚·B
+> Tip: ä½•ã‚‰ã‹ã®è¿½åŠ ã®æ©Ÿèƒ½ã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã«ã€æ§‹æˆæƒ…å ±é…åˆ—ã® '__class' ã‚­ãƒ¼ã‚’ä½¿ã£ã¦ã€
+  ãƒªã‚¯ã‚¨ã‚¹ãƒˆã¨ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ã‚ãªãŸè‡ªèº«ã®ã‚¯ãƒ©ã‚¹ã‚’æŒ‡å®šã™ã‚‹ã“ã¨ã‚‚å¯èƒ½ã§ã™ã€‚
 
 
-## ƒwƒbƒ_‚ðˆµ‚¤
+## ãƒ˜ãƒƒãƒ€ã‚’æ‰±ã†
 
-`setHeaders()` ƒƒ\ƒbƒh‚Æ `addHeaders()` ƒƒ\ƒbƒh‚ðŽg‚Á‚ÄAƒŠƒNƒGƒXƒgƒwƒbƒ_‚ðŽw’è‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
-‚Ü‚½A`getHeaders()` ƒƒ\ƒbƒh‚Ü‚½‚Í `headers` ƒvƒƒpƒeƒB‚ðŽg‚¤‚ÆAŠù‚É’è‹`‚³‚ê‚Ä‚¢‚éƒwƒbƒ_‚ð [[\yii\web\HeaderCollection]] ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Æ‚µ‚ÄŽæ“¾‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
-—á‚¦‚ÎA
+`setHeaders()` ãƒ¡ã‚½ãƒƒãƒ‰ã¨ `addHeaders()` ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ä½¿ã£ã¦ã€ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒ˜ãƒƒãƒ€ã‚’æŒ‡å®šã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
+ã¾ãŸã€`getHeaders()` ãƒ¡ã‚½ãƒƒãƒ‰ã¾ãŸã¯ `headers` ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ä½¿ã†ã¨ã€æ—¢ã«å®šç¾©ã•ã‚Œã¦ã„ã‚‹ãƒ˜ãƒƒãƒ€ã‚’ [[\yii\web\HeaderCollection]] ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¨ã—ã¦å–å¾—ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚ä¾‹ãˆã°ã€
 
 ```php
 use yii\httpclient\Client;
@@ -143,30 +171,32 @@ $request = $client->createRequest()
     ->setHeaders(['content-type' => 'application/json'])
     ->addHeaders(['user-agent' => 'My User Agent']);
 
-$request->getHeaders()->add('accept-language', 'en-US;en');
-$request->headers->set('user-agent', 'User agent override');
+$request->setHeader('content-type', 'type/override');
+$request->addHeader('accept-language', 'en-US;en');
 ```
 
-ƒŒƒXƒ|ƒ“ƒXƒIƒuƒWƒFƒNƒg‚ðŽæ“¾‚µ‚½Œã‚ÍA`getHeaders()` ƒƒ\ƒbƒh‚Ü‚½‚Í `headers` ƒvƒƒpƒeƒB‚ðŽg‚Á‚ÄA‚·‚×‚Ä‚ÌƒŒƒXƒ|ƒ“ƒXƒwƒbƒ_‚ÉƒAƒNƒZƒX‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
+ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒ»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—ã—ãŸå¾Œã¯ã€`getHeaders()` ãƒ¡ã‚½ãƒƒãƒ‰ã¾ãŸã¯ `headers` ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ä½¿ã£ã¦ã€
+ã™ã¹ã¦ã®ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒ˜ãƒƒãƒ€ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
 
 ```php
 $response = $request->send();
-echo $response->getHeaders()->get('content-type');
-echo $response->headers->get('content-encoding');
+echo $response->getHeaderLine('content-encoding');
+var_dump($response->getHeaders());
 ```
 
 
-## ƒNƒbƒL[‚ðˆµ‚¤
+## ã‚¯ãƒƒã‚­ãƒ¼ã‚’æ‰±ã†
 
-ƒNƒbƒL[‚Íƒwƒbƒ_‚Ì’l‚Æ‚µ‚Ä‘—ŽóM‚³‚ê‚é‚¾‚¯‚Ì‚à‚Ì‚Å‚·‚ªA[[\yii\httpclient\Request]] ‚Æ [[\yii\httpclient\Request]] ‚ÍA[[\yii\web\Cookie]] ‚¨‚æ‚Ñ [[\yii\web\CookieCollection]] ‚ðŽg‚Á‚ÄƒNƒbƒL[‚ðˆµ‚¤‚½‚ß‚Ì“Æ—§‚µ‚½ƒCƒ“ƒ^[ƒtƒFƒCƒX‚ð’ñ‹Ÿ‚µ‚Ä‚¢‚Ü‚·B
+ã‚¯ãƒƒã‚­ãƒ¼ã¯ãƒ˜ãƒƒãƒ€ã®å€¤ã¨ã—ã¦é€å—ä¿¡ã•ã‚Œã‚‹ã ã‘ã®ã‚‚ã®ã§ã™ãŒã€[[\yii\httpclient\Request]] ã¨ [[\yii\httpclient\Response]] ã¯ã€
+[[\yii\http\Cookie]] ãŠã‚ˆã³ [[\yii\http\CookieCollection]] ã‚’ä½¿ã£ã¦ã‚¯ãƒƒã‚­ãƒ¼ã‚’æ‰±ã†ãŸã‚ã®ç‹¬ç«‹ã—ãŸã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã‚’æä¾›ã—ã¦ã„ã¾ã™ã€‚
 
-ƒŠƒNƒGƒXƒg‚ÌƒNƒbƒL[‚Í `setCookies()` ‚Ü‚½‚Í `addCookies()` ƒƒ\ƒbƒh‚ÅŽw’è‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
-‚Ü‚½A`getCookies()` ƒƒ\ƒbƒh‚Ü‚½‚Í `cookies` ƒvƒƒpƒeƒB‚ðŽg‚¤‚ÆAŠù‚É’è‹`‚³‚ê‚Ä‚¢‚éƒNƒbƒL[‚ð [[\yii\web\CookieCollection]] ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Æ‚µ‚ÄŽæ“¾‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
-—á‚¦‚ÎA
+ãƒªã‚¯ã‚¨ã‚¹ãƒˆã®ã‚¯ãƒƒã‚­ãƒ¼ã¯ `setCookies()` ã¾ãŸã¯ `addCookies()` ãƒ¡ã‚½ãƒƒãƒ‰ã§æŒ‡å®šã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
+ã¾ãŸã€`getCookies()` ãƒ¡ã‚½ãƒƒãƒ‰ã¾ãŸã¯ `cookies` ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ä½¿ã†ã¨ã€æ—¢ã«å®šç¾©ã•ã‚Œã¦ã„ã‚‹ã‚¯ãƒƒã‚­ãƒ¼ã‚’ [[\yii\http\CookieCollection]] ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¨ã—ã¦å–å¾—ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
+ä¾‹ãˆã°ã€
 
 ```php
 use yii\httpclient\Client;
-use yii\web\Cookie;
+use yii\http\Cookie;
 
 $client = new Client(['baseUrl' => 'http://example.com/api/1.0']);
 $request = $client->createRequest()
@@ -181,17 +211,18 @@ $request = $client->createRequest()
 $request->cookies->add(['name' => 'display-notification', 'value' => '0']);
 ```
 
-ƒŒƒXƒ|ƒ“ƒXƒIƒuƒWƒFƒNƒg‚ðŽæ“¾‚µ‚½Œã‚ÍA`getCookies()` ƒƒ\ƒbƒh‚Ü‚½‚Í `cookies` ƒvƒƒpƒeƒB‚ðŽg‚Á‚ÄAƒŒƒXƒ|ƒ“ƒX‚ÌƒNƒbƒL[‘S‚Ä‚ÉƒAƒNƒZƒX‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
+ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—ã—ãŸå¾Œã¯ã€`getCookies()` ãƒ¡ã‚½ãƒƒãƒ‰ã¾ãŸã¯ `cookies` ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ä½¿ã£ã¦ã€
+ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã®ã‚¯ãƒƒã‚­ãƒ¼å…¨ã¦ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
 
 ```php
 $response = $request->send();
 echo $response->getCookies()->get('country');
-echo $response->headers->get('PHPSESSID');
+echo $response->cookies->get('PHPSESSID');
 ```
 
-’Pƒ‚ÈƒRƒs[‚ðŽg‚Á‚ÄAƒŒƒXƒ|ƒ“ƒXƒIƒuƒWƒFƒNƒg‚©‚çƒŠƒNƒGƒXƒgƒIƒuƒWƒFƒNƒg‚ÉƒNƒbƒL[‚ð“]‘—‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
-—á‚¦‚ÎA‰½‚©‚ÌƒEƒFƒuƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Åƒ†[ƒU‚Ìƒvƒƒtƒ@ƒCƒ‹‚ð•ÒW‚·‚é•K—v‚ª‚ ‚é‚Æ‚µ‚Ü‚µ‚å‚¤B
-ƒ†[ƒU‚Ìƒvƒƒtƒ@ƒCƒ‹‚ÍƒƒOƒCƒ“Œã‚É‚Ì‚ÝƒAƒNƒZƒX‚Å‚«‚Ü‚·‚Ì‚ÅAÅ‰‚ÉƒƒOƒCƒ“‚µ‚ÄA‚»‚±‚Å¶¬‚³‚ê‚½ƒZƒbƒVƒ‡ƒ“‚ðŽg‚Á‚ÄX‚Éì‹Æ‚ð‚µ‚Ü‚·B
+å˜ç´”ãªã‚³ãƒ”ãƒ¼ã‚’ä½¿ã£ã¦ã€ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ã‚¯ãƒƒã‚­ãƒ¼ã‚’è»¢é€ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
+ä¾‹ãˆã°ã€ä½•ã‹ã®ã‚¦ã‚§ãƒ–ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã§ãƒ¦ãƒ¼ã‚¶ã®ãƒ—ãƒ­ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç·¨é›†ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã¨ã—ã¾ã—ã‚‡ã†ã€‚
+ãƒ¦ãƒ¼ã‚¶ã®ãƒ—ãƒ­ãƒ•ã‚¡ã‚¤ãƒ«ã¯ãƒ­ã‚°ã‚¤ãƒ³å¾Œã«ã®ã¿ã‚¢ã‚¯ã‚»ã‚¹ã§ãã¾ã™ã®ã§ã€æœ€åˆã«ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã€ãã“ã§ç”Ÿæˆã•ã‚ŒãŸã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚’ä½¿ã£ã¦æ›´ã«ä½œæ¥­ã‚’ã—ã¾ã™ã€‚
 
 ```php
 use yii\httpclient\Client;
@@ -203,9 +234,9 @@ $loginResponse = $client->post('login', [
     'password' => 'somepassword',
 ])->send();
 
-// $loginResponse->cookies->get('PHPSESSID') ‚ªV‚µ‚¢ƒZƒbƒVƒ‡ƒ“ ID ‚ð•ÛŽ‚µ‚Ä‚¢‚é
+// $loginResponse->cookies->get('PHPSESSID') ãŒæ–°ã—ã„ã‚»ãƒƒã‚·ãƒ§ãƒ³ ID ã‚’ä¿æŒã—ã¦ã„ã‚‹
 
 $client->post('account/profile', ['birthDate' => '10/11/1982'])
-    ->setCookies($loginResponse->cookies) // ƒŒƒXƒ|ƒ“ƒX‚ÌƒNƒbƒL[‚ðƒŠƒNƒGƒXƒg‚ÌƒNƒbƒL[‚É“]‘—
+    ->setCookies($loginResponse->cookies) // ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã®ã‚¯ãƒƒã‚­ãƒ¼ã‚’ãƒªã‚¯ã‚¨ã‚¹ãƒˆã®ã‚¯ãƒƒã‚­ãƒ¼ã«è»¢é€
     ->send();
 ```
