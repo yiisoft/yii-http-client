@@ -1,18 +1,23 @@
-���N�G�X�g�̃I�v�V����
+リクエストのオプション
 ======================
 
-[[\yii\httpclient\Request::options]] ���g���āA����̃��N�G�X�g�̎��s�𒲐����邱�Ƃ��o���܂��B
-�ȉ��̃I�v�V�������T�|�[�g����Ă��܂��B
- - timeout: integer�A���N�G�X�g�̎��s�ɋ��e�����ő�b���B
- - proxy: string�A�v���L�V�T�[�o�̃A�h���X���w�肷�� URI (�Ⴆ�΁Atcp://proxy.example.com:5100)�B
- - userAgent: string�AHTTP ���N�G�X�g�Ɏg�p����� "User-Agent: " �w�b�_�̓��e�B
- - followLocation: boolean�A�T�[�o�� HTTP �w�b�_�̈ꕔ�Ƃ��đ��M���邷�ׂĂ� "Location:" �w�b�_�ɏ]�����ۂ��B
- - maxRedirects: integer�Aredirect �ɏ]���ő�񐔁B
- - sslVerifyPeer: boolean�Apeer �̏ؖ����̌��؂����邩�ۂ��B
- - sslCafile: string�A���[�J���̃t�@�C���V�X�e����� Certificate Authority (CA) �t�@�C���̏ꏊ�B'sslVerifyPeer' �I�v�V�����ɂ���ă����[�g�� peer �� identity ��F�؂���ۂɂ��� CA �t�@�C����p����B
- - sslCapath: string�A������ CA �ؖ�����ێ�����f�B���N�g���B
+[[\yii\httpclient\Request::options]] を使って、特定のリクエストの実行を調整することが出来ます。
+以下のオプションがサポートされています。
 
-�Ⴆ�΁A
+ - timeout: integer、リクエストの実行に許容される最大秒数。
+ - proxy: string、プロキシサーバのアドレスを指定する URI (例えば、tcp://proxy.example.com:5100)。
+ - userAgent: string、HTTP リクエストに使用される "User-Agent: " ヘッダの内容。
+ - followLocation: boolean、サーバが HTTP ヘッダの一部として送信するすべての "Location:" ヘッダに従うか否か。
+ - maxRedirects: integer、redirect に従う最大回数。
+ - sslVerifyPeer: boolean、peer の証明書の検証をするか否か。
+ - sslCafile: string、ローカルのファイルシステム上の Certificate Authority (CA) ファイルの場所。
+   'sslVerifyPeer' オプションによってリモートの peer の identity を認証する際にこの CA ファイルを用いる。
+ - sslCapath: string、複数の CA 証明書を保持するディレクトリ。
+ - sslLocalCert: ファイル・システム上のローカルな証明書へのパス。証明書とプライベート・キーを含む PEM エンコードされたファイルでなければならない。オプションで、発行者の証明書チェーンを含むことが出来る。プライベート・キーは sslLocalPk によって指定される独立したファイルに含まれていても良い。
+ - sslLocalPk: 証明書 (sslLocalCert) とプライベート・キーのファイルが分かれている場合、ファイル・システム上のローカルなプライベート・キー・ファイルへのパス。
+ - sslPassphrase: sslLocalCert ファイルがエンコードされたときに使われたパス・フレーズ。
+
+例えば、
 
 ```php
 use yii\httpclient\Client;
@@ -22,38 +27,38 @@ $client = new Client();
 $response = $client->createRequest()
     ->setMethod('post')
     ->setUrl('http://domain.com/api/1.0/users')
-    ->setData(['name' => 'John Doe', 'email' => 'johndoe@domain.com'])
+    ->setParams(['name' => 'John Doe', 'email' => 'johndoe@domain.com'])
     ->setOptions([
-        'proxy' => 'tcp://proxy.example.com:5100', // �v���L�V���g�p
-        'timeout' => 5, // �T�[�o���������Ȃ��ꍇ�̂��߂� 5 �b�̃^�C���A�E�g��ݒ�
+        'proxy' => 'tcp://proxy.example.com:5100', // プロキシを使用
+        'timeout' => 5, // サーバが応答しない場合のために 5 秒のタイムアウトを設定
     ])
     ->send();
 ```
 
-> Tip: �f�t�H���g�̃��N�G�X�g�I�v�V������ [[\yii\httpclient\Client::requestConfig]] �ɂ���Đݒ肷�邱�Ƃ��o���܂��B
-  ���̏ꍇ�A���ʂȃ��N�G�X�g�I�v�V������ǉ��������Ƃ��́A�ݒ�ς݂̃I�v�V������ێ����邽�߂� [[\yii\httpclient\Request::addOptions()]] ���g���Ă��������B
+> Tip: デフォルトのリクエストオプションを [[\yii\httpclient\Client::requestConfig]] によって設定することが出来ます。
+  その場合、特別なリクエストオプションを追加したいときは、設定済みのオプションを保持するために [[\yii\httpclient\Request::addOptions()]] を使ってください。
 
-����̃��N�G�X�g�̃g�����X�|�[�g�ɑ΂��Ă̂ݓK�p����I�v�V������n�����Ƃ��o���܂��B
-[[\yii\httpclient\CurlTransport]] ���g���ꍇ�́A�ʏ�A���̂悤�ɂ��܂��B
-�Ⴆ�΁A�ڑ��ƃf�[�^��M�ɂ��āAPHP cURL ���C�u�����ɂ���ăT�|�[�g����Ă���悤�ɁA�ʂ̃^�C���A�E�g���w�肵�����ł��傤�B
-���̂悤�ɂ��āA�������邱�Ƃ��o���܂��B
+特定のリクエストのトランスポートに対してのみ適用するオプションを渡すことも出来ます。
+[[\yii\httpclient\CurlTransport]] を使う場合は、通常、そのようにします。
+例えば、接続とデータ受信について、PHP cURL ライブラリによってサポートされているように、個別のタイムアウトを指定したいでしょう。
+次のようにして、そうすることが出来ます。
 
 ```php
 use yii\httpclient\Client;
 
 $client = new Client([
-    'transport' => 'yii\httpclient\CurlTransport' // �����Ŏg���I�v�V������ cURL �������T�|�[�g���Ă���
+    'transport' => 'yii\httpclient\CurlTransport' // ここで使うオプションは cURL だけがサポートしている
 ]);
 
 $response = $client->createRequest()
     ->setMethod('post')
     ->setUrl('http://domain.com/api/1.0/users')
-    ->setData(['name' => 'John Doe', 'email' => 'johndoe@domain.com'])
+    ->setParams(['name' => 'John Doe', 'email' => 'johndoe@domain.com'])
     ->setOptions([
-        CURLOPT_CONNECTTIMEOUT => 5, // �ڑ��^�C���A�E�g
-        CURLOPT_TIMEOUT => 10, // �f�[�^��M�^�C���A�E�g
+        CURLOPT_CONNECTTIMEOUT => 5, // 接続タイムアウト
+        CURLOPT_TIMEOUT => 10, // データ受信タイムアウト
     ])
     ->send();
 ```
 
-�ŗL�̃I�v�V�����̃T�|�[�g�ɂ��ẮA�ʂ̃g�����X�|�[�g�N���X�̃h�L�������g���Q�Ƃ��Ă��������B
+固有のオプションのサポートについては、個別のトランスポートクラスのドキュメントを参照してください。

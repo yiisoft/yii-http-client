@@ -1,15 +1,14 @@
-ƒNƒ‰ƒCƒAƒ“ƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ðƒZƒbƒgƒAƒbƒv‚·‚é
+ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã™ã‚‹
 ============================================
 
-‚±‚ÌƒGƒNƒXƒeƒ“ƒVƒ‡ƒ“‚ÌŽg—p‚ÍA[[\yii\httpclient\Client]] ƒIƒuƒWƒFƒNƒg‚ðƒCƒ“ƒXƒ^ƒ“ƒX‰»‚·‚é‚Æ‚±‚ë‚©‚çŽn‚Ü‚è‚Ü‚·B
-[[\yii\httpclient\Client]] ‚ð‚ ‚È‚½‚ÌƒvƒƒOƒ‰ƒ€‚É“‡‚·‚é•û–@‚Í‚¢‚­‚Â‚©‚ ‚è‚Ü‚·B
-‚±‚±‚Å‚ÍA‚à‚Á‚Æ‚àˆê”Ê“I‚ÈƒAƒvƒ[ƒ`‚ðà–¾‚µ‚Ü‚·B
+ã“ã®ã‚¨ã‚¯ã‚¹ãƒ†ãƒ³ã‚·ãƒ§ãƒ³ã®ä½¿ç”¨ã¯ã€[[\yii\httpclient\Client]] ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã™ã‚‹ã¨ã“ã‚ã‹ã‚‰å§‹ã¾ã‚Šã¾ã™ã€‚
+[[\yii\httpclient\Client]] ã‚’ã‚ãªãŸã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã«çµ±åˆã™ã‚‹æ–¹æ³•ã¯ã„ãã¤ã‹ã‚ã‚Šã¾ã™ã€‚ã“ã“ã§ã¯ã€ã‚‚ã£ã¨ã‚‚ä¸€èˆ¬çš„ãªã‚¢ãƒ—ãƒ­ãƒ¼ãƒã‚’èª¬æ˜Žã—ã¾ã™ã€‚
 
 
-## ƒNƒ‰ƒCƒAƒ“ƒg‚ðƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒRƒ“ƒ|[ƒlƒ“ƒg‚Æ‚µ‚ÄƒZƒbƒgƒAƒbƒv‚·‚é
+## ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã‚’ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ»ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¨ã—ã¦ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã™ã‚‹
 
-[[\yii\httpclient\Client]] ‚Í [[\yii\base\Component]] ‚ÌŠg’£‚Å‚·‚Ì‚ÅA[[\yii\di\Container]] ‚ÌƒŒƒxƒ‹‚ÅA‚·‚È‚í‚¿AƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒRƒ“ƒ|[ƒlƒ“ƒg‚Æ‚µ‚ÄAƒZƒbƒgƒAƒbƒv‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
-—á‚¦‚ÎA
+[[\yii\httpclient\Client]] ã¯ [[\yii\base\Component]] ã®æ‹¡å¼µã§ã™ã®ã§ã€[[\yii\di\Container]] ã®ãƒ¬ãƒ™ãƒ«ã§ã€ã™ãªã‚ã¡ã€ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ»ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¨ã—ã¦ã€ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
+ä¾‹ãˆã°ã€
 
 ```php
 return [
@@ -17,20 +16,24 @@ return [
     'components' => [
         // ...
         'phpNetHttp' => [
-            'class' => 'yii\httpclient\Client',
-            'baseUrl' => 'http://uk.php.net',
+            '__class' => yii\httpclient\Client::class,
+            'baseUrl' => 'http://php.net',
         ],
     ],
 ];
 
 // ...
-echo Yii::$app->phpNetHttp->get('docs.php')->send()->content;
+echo Yii::$app->get('phpNetHttp')
+    ->get('docs.php')
+    ->send()
+    ->getBody();
 ```
 
 
-## ƒNƒ‰ƒCƒAƒ“ƒgƒNƒ‰ƒX‚ðŠg’£‚·‚é
+## ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆãƒ»ã‚¯ãƒ©ã‚¹ã‚’æ‹¡å¼µã™ã‚‹
 
-[[\yii\httpclient\Client]] ‚ÍƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒRƒ“ƒ|[ƒlƒ“ƒg‚Æ‚µ‚ÄŽg—p‚·‚éŽ–‚ªo—ˆ‚é‚½‚ßA’P‚É‚±‚ê‚ðŠg’£‚µ‚ÄA‚ ‚È‚½‚ª•K—v‚Æ‚·‚é‰½‚ç‚©‚ÌƒJƒXƒ^ƒ€ƒƒWƒbƒN‚ð’Ç‰Á‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
+[[\yii\httpclient\Client]] ã¯ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ»ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¨ã—ã¦ä½¿ç”¨ã™ã‚‹äº‹ãŒå‡ºæ¥ã‚‹ãŸã‚ã€å˜ã«ã“ã‚Œã‚’æ‹¡å¼µã—ã¦ã€
+ã‚ãªãŸãŒå¿…è¦ã¨ã™ã‚‹ä½•ã‚‰ã‹ã®ã‚«ã‚¹ã‚¿ãƒ ãƒ»ãƒ­ã‚¸ãƒƒã‚¯ã‚’è¿½åŠ ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
 
 ```php
 use yii\httpclient\Client;
@@ -43,9 +46,9 @@ class MyRestApi extends Client
     {
         $response = $this->post('users', $data)->send();
         if (!$response->isOk) {
-            throw new \Exception('ƒ†[ƒU‚ð’Ç‰Á‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚¹‚ñB');
+            throw new \Exception('ãƒ¦ãƒ¼ã‚¶ã‚’è¿½åŠ ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã›ã‚“ã€‚');
         }
-        return $response->data['id'];
+        return $response->parsedBody['id'];
     }
 
     // ...
@@ -53,10 +56,10 @@ class MyRestApi extends Client
 ```
 
 
-## ƒNƒ‰ƒCƒAƒ“ƒgƒIƒuƒWƒFƒNƒg‚ðƒ‰ƒbƒv‚·‚é
+## ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆãƒ»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ©ãƒƒãƒ—ã™ã‚‹
 
-[[\yii\httpclient\Client]] ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ðƒRƒ“ƒ|[ƒlƒ“ƒg‚Ì“à•”ƒtƒB[ƒ‹ƒh‚Æ‚µ‚ÄŽg—p‚µ‚ÄA‚ ‚éŽí‚Ì•¡ŽG‚È‹@”\‚ð’ñ‹Ÿ‚³‚¹‚éŽ–‚ào—ˆ‚Ü‚·B
-—á‚¦‚ÎA
+[[\yii\httpclient\Client]] ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å†…éƒ¨ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã¨ã—ã¦ä½¿ç”¨ã—ã¦ã€ã‚ã‚‹ç¨®ã®è¤‡é›‘ãªæ©Ÿèƒ½ã‚’æä¾›ã•ã›ã‚‹äº‹ã‚‚å‡ºæ¥ã¾ã™ã€‚
+ä¾‹ãˆã°ã€
 
 ```php
 use yii\base\Component;
@@ -72,7 +75,7 @@ class MyRestApi extends Component
     {
         if (!is_object($this->_httpClient)) {
             $this->_httpClient = Yii::createObject([
-                'class' => Client::className(),
+                '__class' => Client::class,
                 'baseUrl' => $this->baseUrl,
             ]);
         }
@@ -83,9 +86,9 @@ class MyRestApi extends Component
     {
         $response = $this->getHttpClient()->post('users', $data)->send();
         if (!$response->isOk) {
-            throw new \Exception('ƒ†[ƒU‚ð’Ç‰Á‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚¹‚ñB');
+            throw new \Exception('ãƒ¦ãƒ¼ã‚¶ã‚’è¿½åŠ ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã›ã‚“ã€‚');
         }
-        return $response->data['id'];
+        return $response->parsedBody['id'];
     }
 
     // ...
