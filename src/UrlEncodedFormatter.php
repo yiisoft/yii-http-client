@@ -7,7 +7,7 @@
 
 namespace yii\httpclient;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\BaseObject;
 use yii\http\MemoryStream;
 
@@ -60,7 +60,7 @@ class UrlEncodedFormatter extends BaseObject implements FormatterInterface
             return $request;
         }
 
-        $charset = $this->charset === null ? Yii::$app->charset : $this->charset;
+        $charset = $this->charset === null ? Yii::getApp()->charset : $this->charset;
         $request->setHeader('Content-Type', 'application/x-www-form-urlencoded; charset=' . $charset);
 
         if (isset($content)) {
