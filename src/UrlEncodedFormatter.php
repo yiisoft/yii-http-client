@@ -60,7 +60,7 @@ class UrlEncodedFormatter extends BaseObject implements FormatterInterface
             return $request;
         }
 
-        $charset = $this->charset === null ? Yii::getApp()->charset : $this->charset;
+        $charset = $this->charset ?? Yii::getApp()->charset;
         $request->setHeader('Content-Type', 'application/x-www-form-urlencoded; charset=' . $charset);
 
         if (isset($content)) {
