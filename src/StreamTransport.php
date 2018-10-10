@@ -9,7 +9,7 @@ namespace yii\httpclient;
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * StreamTransport sends HTTP messages using [Streams](http://php.net/manual/en/book.stream.php)

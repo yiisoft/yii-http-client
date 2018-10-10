@@ -13,8 +13,8 @@ use DOMText;
 use SimpleXMLElement;
 use yii\base\Arrayable;
 use yii\base\BaseObject;
-use Yii;
 use yii\helpers\StringHelper;
+use yii\helpers\Yii;
 use yii\http\MemoryStream;
 
 /**
@@ -60,7 +60,7 @@ class XmlFormatter extends BaseObject implements FormatterInterface
     public function format(Request $request)
     {
         $contentType = $this->contentType;
-        $charset = $this->encoding === null ? Yii::$app->charset : $this->encoding;
+        $charset = $this->encoding === null ? Yii::getApp()->charset : $this->encoding;
         if (stripos($contentType, 'charset') === false) {
             $contentType .= '; charset=' . $charset;
         }

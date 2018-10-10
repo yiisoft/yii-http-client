@@ -8,10 +8,9 @@
 namespace yii\httpclient\debug;
 
 use yii\debug\Panel;
-use yii\di\Instance;
+use yii\helpers\Yii;
 use yii\httpclient\Client;
 use yii\log\Logger;
-use Yii;
 
 /**
  * Debugger panel that collects and displays HTTP requests performed.
@@ -54,7 +53,7 @@ class HttpClientPanel extends Panel
     public function getHttpClient()
     {
         if (!is_object($this->_httpClient)) {
-            $this->_httpClient = Instance::ensure($this->_httpClient, Client::class);
+            $this->_httpClient = Yii::ensureObject($this->_httpClient, Client::class);
         }
         return $this->_httpClient;
     }
@@ -91,7 +90,7 @@ class HttpClientPanel extends Panel
 
         $queryTime = number_format($this->getTotalRequestTime($timings) * 1000) . ' ms';
 
-        return Yii::$app->view->render('@yii/httpclient/debug/views/summary', [
+        return Yii::getApp()->view->render('@yii/httpclient/debug/views/summary', [
             'timings' => $this->calculateTimings(),
             'panel' => $this,
             'queryCount' => $queryCount,
@@ -105,9 +104,9 @@ class HttpClientPanel extends Panel
     public function getDetail()
     {
         $searchModel = new SearchModel();
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(), $this->getModels());
+        $dataProvider = $searchModel->search(Yii::getApp()->request->getQueryParams(), $this->getModels());
 
-        return Yii::$app->view->render('@yii/httpclient/debug/views/detail', [
+        return Yii::getApp()->view->render('@yii/httpclient/debug/views/detail', [
             'panel' => $this,
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
@@ -122,7 +121,7 @@ class HttpClientPanel extends Panel
     public function calculateTimings()
     {
         if ($this->_timings === null) {
-            $this->_timings = Yii::getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : []);
+            $this->_timings = Yii::getApp()->getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : []);
         }
 
         return $this->_timings;

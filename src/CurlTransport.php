@@ -7,7 +7,7 @@
 
 namespace yii\httpclient;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * CurlTransport sends HTTP messages using [Client URL Library (cURL)](http://php.net/manual/en/book.curl.php)

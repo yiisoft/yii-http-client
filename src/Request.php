@@ -9,9 +9,9 @@ namespace yii\httpclient;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
-use yii\di\Instance;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
+use yii\helpers\Yii;
 use yii\http\MemoryStream;
 use yii\http\Uri;
 
@@ -111,7 +111,7 @@ class Request extends Message implements RequestInterface
                 $uri = $this->_uri;
             }
 
-            $this->_uri = Instance::ensure($uri, UriInterface::class);
+            $this->_uri = Yii::ensureObject($uri, UriInterface::class);
         }
 
         return $this->_uri;

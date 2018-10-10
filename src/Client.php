@@ -8,8 +8,8 @@
 namespace yii\httpclient;
 
 use yii\base\Component;
-use Yii;
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
+use yii\helpers\Yii;
 use yii\http\MemoryStream;
 
 /**

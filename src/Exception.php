@@ -13,7 +13,7 @@ namespace yii\httpclient;
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0
  */
-class Exception extends \yii\base\Exception
+class Exception extends \yii\exceptions\Exception
 {
     /**
      * @return string the user-friendly name of this exception
