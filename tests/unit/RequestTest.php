@@ -1,12 +1,12 @@
 <?php
 
-namespace yiiunit\httpclient;
+namespace yii\httpclient\tests\unit;
 
 use yii\http\MemoryStream;
 use yii\httpclient\Client;
 use yii\httpclient\Request;
 
-class RequestTest extends TestCase
+class RequestTest extends \yii\tests\TestCase
 {
     protected function setUp()
     {

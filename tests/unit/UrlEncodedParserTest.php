@@ -1,11 +1,11 @@
 <?php
 
-namespace yiiunit\httpclient;
+namespace yii\httpclient\tests\unit;
 
 use yii\httpclient\UrlEncodedParser;
 use yii\httpclient\Response;
 
-class UrlEncodedParserTest extends TestCase
+class UrlEncodedParserTest extends \yii\tests\TestCase
 {
     public function testParse()
     {

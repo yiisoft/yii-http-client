@@ -1,13 +1,13 @@
 <?php
 
-namespace yiiunit\httpclient;
+namespace yii\httpclient\tests\unit;
 
 use yii\helpers\Json;
 use yii\http\MemoryStream;
 use yii\httpclient\JsonParser;
 use yii\httpclient\Response;
 
-class JsonParserTest extends TestCase
+class JsonParserTest extends \yii\tests\TestCase
 {
     public function testParse()
     {

@@ -1,11 +1,11 @@
 <?php
 
-namespace yiiunit\httpclient;
+namespace yii\httpclient\tests\unit;
 
 use yii\httpclient\UrlEncodedFormatter;
 use yii\httpclient\Request;
 
-class UrlEncodedFormatterTest extends TestCase
+class UrlEncodedFormatterTest extends \yii\tests\TestCase
 {
     protected function setUp()
     {

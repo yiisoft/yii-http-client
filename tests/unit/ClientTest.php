@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\httpclient;
+namespace yii\httpclient\tests\unit;
 
 use yii\http\MemoryStream;
 use yii\httpclient\Client;
@@ -15,7 +15,7 @@ use yii\httpclient\Response;
 use yii\httpclient\Transport;
 use yii\httpclient\CurlTransport;
 
-class ClientTest extends TestCase
+class ClientTest extends \yii\tests\TestCase
 {
     public function testSetupFormatters()
     {

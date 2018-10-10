@@ -1,5 +1,9 @@
 <?php
 
+use hiqdev\composer\config\Builder;
+use yii\di\Container;
+use yii\helpers\Yii;
+
 // ensure we get report on all possible php errors
 error_reporting(-1);
 
@@ -8,8 +12,15 @@ define('YII_DEBUG', true);
 $_SERVER['SCRIPT_NAME'] = '/' . __DIR__;
 $_SERVER['SCRIPT_FILENAME'] = __FILE__;
 
-require_once(__DIR__ . '/../vendor/autoload.php');
-require_once(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
+(function () {
+    $composerAutoload = __DIR__ . '/../vendor/autoload.php';
+    if (!is_file($composerAutoload)) {
+        die('You need to set up the project dependencies using Composer');
+    }
 
-Yii::setAlias('@yiiunit/httpclient', __DIR__);
-Yii::setAlias('@yii/httpclient', dirname(__DIR__) . '/src');
+    require_once $composerAutoload;
+
+    $container = new Container(require Builder::path('tests'));
+
+    Yii::setContainer($container);
+})();

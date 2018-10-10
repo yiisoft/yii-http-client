@@ -1,13 +1,13 @@
 <?php
 
-namespace yiiunit\httpclient;
+namespace yii\httpclient\tests\unit;
 
 use yii\http\MemoryStream;
 use yii\httpclient\Message;
 use yii\http\Cookie;
 use yii\http\CookieCollection;
 
-class MessageTest extends TestCase
+class MessageTest extends \yii\tests\TestCase
 {
     public function testSetupHeaders()
     {

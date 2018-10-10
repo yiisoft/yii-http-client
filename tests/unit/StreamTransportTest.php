@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\httpclient;
+namespace yii\httpclient\tests\unit;
 
 use yii\httpclient\StreamTransport;
 

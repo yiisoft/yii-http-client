@@ -1,12 +1,12 @@
 <?php
 
-namespace yiiunit\httpclient;
+namespace yii\httpclient\tests\unit;
 
 use yii\helpers\Json;
 use yii\httpclient\JsonFormatter;
 use yii\httpclient\Request;
 
-class JsonFormatterTest extends TestCase
+class JsonFormatterTest extends \yii\tests\TestCase
 {
     public function testFormat()
     {

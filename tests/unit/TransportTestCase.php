@@ -1,8 +1,7 @@
 <?php
 
-namespace yiiunit\httpclient;
+namespace yii\httpclient\tests\unit;
 
-use Yii;
 use yii\helpers\FileHelper;
 use yii\httpclient\Client;
 use yii\httpclient\Request;
@@ -12,7 +11,7 @@ use yii\httpclient\Response;
 /**
  * This is the base class for HTTP message transport unit tests.
  */
-abstract class TransportTestCase extends TestCase
+abstract class TransportTestCase extends \yii\tests\TestCase
 {
     protected function setUp()
     {
@@ -276,7 +275,7 @@ abstract class TransportTestCase extends TestCase
         openssl_pkey_export($res, $privateKey, $passphrase);
         openssl_csr_export($csr, $csrStr);
 
-        $filePath = Yii::getAlias('@runtime');
+        $filePath = $this->app->getAlias('@runtime');
         FileHelper::createDirectory($filePath);
 
         $privateKeyFilename = $filePath . DIRECTORY_SEPARATOR . 'private.pem';

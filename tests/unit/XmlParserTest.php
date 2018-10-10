@@ -1,11 +1,11 @@
 <?php
 
-namespace yiiunit\httpclient;
+namespace yii\httpclient\tests\unit;
 
 use yii\httpclient\XmlParser;
 use yii\httpclient\Response;
 
-class XmlParserTest extends TestCase
+class XmlParserTest extends \yii\tests\TestCase
 {
     public function testParse()
     {

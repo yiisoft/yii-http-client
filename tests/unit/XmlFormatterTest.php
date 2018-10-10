@@ -1,13 +1,13 @@
 <?php
 
-namespace yiiunit\httpclient;
+namespace yii\httpclient\tests\unit;
 
 use DOMDocument;
 use DOMElement;
 use yii\httpclient\XmlFormatter;
 use yii\httpclient\Request;
 
-class XmlFormatterTest extends TestCase
+class XmlFormatterTest extends \yii\tests\TestCase
 {
     protected function setUp()
     {
