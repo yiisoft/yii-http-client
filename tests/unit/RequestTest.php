@@ -5,6 +5,7 @@ namespace yii\httpclient\tests\unit;
 use yii\http\MemoryStream;
 use yii\httpclient\Client;
 use yii\httpclient\Request;
+use yii\helpers\Yii;
 
 class RequestTest extends \yii\tests\TestCase
 {
@@ -140,7 +141,8 @@ class RequestTest extends \yii\tests\TestCase
      */
     public function testFormatData()
     {
-        $request = new Request([
+        $request = Yii::createObject([
+            '__class' => Request::class,
             'client' => new Client(),
             'format' => Client::FORMAT_URLENCODED,
             'method' => 'POST',
@@ -159,7 +161,8 @@ class RequestTest extends \yii\tests\TestCase
      */
     public function testToString()
     {
-        $request = new Request([
+        $request = Yii::createObject([
+            '__class' => Request::class,
             'client' => new Client(),
             'format' => Client::FORMAT_URLENCODED,
             'method' => 'POST',
@@ -180,7 +183,8 @@ EOL;
         $this->assertEquals($expectedResult, $request->toString());
 
         // @see https://github.com/yiisoft/yii2-httpclient/issues/70
-        $request = new Request([
+        $request = Yii::createObject([
+            '__class' => Request::class,
             'client' => new Client(),
             'format' => Client::FORMAT_URLENCODED,
             'method' => 'POST',
@@ -256,7 +260,10 @@ EOL;
     {
         $client = new Client();
         $client->baseUrl = $baseUrl;
-        $request = new Request(['client' => $client]);
+        $request = Yii::createObject([
+            '__class' => Request::class,
+            'client' => $client
+        ]);        
 
         $request->setUrl($url);
         $this->assertEquals($expectedFullUrl, $request->getUri()->__toString());
@@ -267,7 +274,8 @@ EOL;
      */
     public function testReuse()
     {
-        $request = new Request([
+        $request = Yii::createObject([
+            '__class' => Request::class,
             'client' => new Client(),
             'format' => Client::FORMAT_URLENCODED,
             'method' => 'POST',
@@ -303,10 +311,12 @@ EOL;
 
     public function testMultiPartRequest()
     {
-        $request = new Request([
-            'client' => new Client([
+        $request = Yii::createObject([
+            '__class' => Request::class,
+            'client' => [
+                '__class' => Client::class,
                 'baseUrl' => '/api'
-            ]),
+            ],
             'method' => 'POST',
         ]);
 
@@ -380,10 +390,12 @@ PART2
      */
     public function testAddBodyPartAsStream()
     {
-        $request = new Request([
-            'client' => new Client([
+        $request = Yii::createObject([
+            '__class' => Request::class,
+            'client' => [
+                '__class' => Client::class,
                 'baseUrl' => '/api'
-            ]),
+            ],
             'method' => 'POST',
         ]);
 
@@ -406,8 +418,10 @@ PART2
      */
     public function testGetParamsReuse()
     {
-        $request = new Request([
-            'client' => new Client([
+        $request = Yii::createObject([
+            '__class' => Request::class,
+            'client' => Yii::createObject([
+                '__class' => Client::class,
                 'baseUrl' => 'http://php.net',
             ]),
             'format' => Client::FORMAT_URLENCODED,

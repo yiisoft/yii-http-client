@@ -30,15 +30,6 @@ use yii\http\Uri;
 class Request extends Message implements RequestInterface
 {
     /**
-     * @event RequestEvent an event raised right before sending request.
-     */
-    const EVENT_BEFORE_SEND = 'beforeSend';
-    /**
-     * @event RequestEvent an event raised right after request has been sent.
-     */
-    const EVENT_AFTER_SEND = 'afterSend';
-
-    /**
      * @var string|array target URL.
      */
     private $_url;
@@ -104,7 +95,7 @@ class Request extends Message implements RequestInterface
     {
         if (!$this->_uri instanceof UriInterface) {
             if ($this->_uri === null) {
-                $uri = new Uri(['string' => $this->createFullUrl($this->getUrl())]);
+                $uri = Uri::fromString($this->createFullUrl($this->getUrl()));
             } elseif ($this->_uri instanceof \Closure) {
                 $uri = call_user_func($this->_uri, $this);
             } else {
@@ -573,9 +564,7 @@ class Request extends Message implements RequestInterface
     {
         $this->client->beforeSend($this);
 
-        $event = new RequestEvent();
-        $event->request = $this;
-        $this->trigger(self::EVENT_BEFORE_SEND, $event);
+        $this->trigger(RequestEvent::beforeSend($this));
     }
 
     /**
@@ -588,10 +577,8 @@ class Request extends Message implements RequestInterface
     {
         $this->client->afterSend($this, $response);
 
-        $event = new RequestEvent();
-        $event->request = $this;
-        $event->response = $response;
-        $this->trigger(self::EVENT_AFTER_SEND, $event);
+        $this->trigger(RequestEvent::afterSend($this, $response));
+
     }
 
     /**

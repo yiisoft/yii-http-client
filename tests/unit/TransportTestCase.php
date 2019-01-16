@@ -7,6 +7,7 @@ use yii\httpclient\Client;
 use yii\httpclient\Request;
 use yii\httpclient\RequestEvent;
 use yii\httpclient\Response;
+use yii\httpclient\ClientEvent;
 
 /**
  * This is the base class for HTTP message transport unit tests.
@@ -28,7 +29,7 @@ abstract class TransportTestCase extends \yii\tests\TestCase
      */
     protected function createClient()
     {
-        return new Client(['transport' => $this->transport()]);
+        return new Client($this->transport());
     }
 
     public function testSend()
@@ -148,12 +149,12 @@ abstract class TransportTestCase extends \yii\tests\TestCase
             ->setUrl('docs.php');
 
         $beforeSendEvent = null;
-        $request->on(Request::EVENT_BEFORE_SEND, function(RequestEvent $event) use (&$beforeSendEvent) {
+        $request->on(RequestEvent::BEFORE_SEND, function(RequestEvent $event) use (&$beforeSendEvent) {
             $beforeSendEvent = $event;
         });
 
         $afterSendEvent = null;
-        $request->on(Request::EVENT_AFTER_SEND, function(RequestEvent $event) use (&$afterSendEvent) {
+        $request->on(RequestEvent::AFTER_SEND, function(RequestEvent $event) use (&$afterSendEvent) {
             $afterSendEvent = $event;
         });
 
@@ -181,12 +182,12 @@ abstract class TransportTestCase extends \yii\tests\TestCase
             ->setUrl('docs.php');
 
         $beforeSendEvent = null;
-        $client->on(Client::EVENT_BEFORE_SEND, function(RequestEvent $event) use (&$beforeSendEvent) {
+        $client->on(ClientEvent::BEFORE_SEND, function(RequestEvent $event) use (&$beforeSendEvent) {
             $beforeSendEvent = $event;
         });
 
         $afterSendEvent = null;
-        $client->on(Client::EVENT_AFTER_SEND, function(RequestEvent $event) use (&$afterSendEvent) {
+        $client->on(ClientEvent::AFTER_SEND, function(RequestEvent $event) use (&$afterSendEvent) {
             $afterSendEvent = $event;
         });
 
@@ -211,12 +212,12 @@ abstract class TransportTestCase extends \yii\tests\TestCase
         $client->baseUrl = 'http://php.net';
 
         $beforeSendUrls = [];
-        $client->on(Client::EVENT_BEFORE_SEND, function(RequestEvent $event) use (&$beforeSendUrls) {
+        $client->on(ClientEvent::BEFORE_SEND, function(RequestEvent $event) use (&$beforeSendUrls) {
             $beforeSendUrls[] = $event->request->getUri()->__toString();
         });
 
         $afterSendUrls = [];
-        $client->on(Client::EVENT_AFTER_SEND, function(RequestEvent $event) use (&$afterSendUrls) {
+        $client->on(ClientEvent::AFTER_SEND, function(RequestEvent $event) use (&$afterSendUrls) {
             $afterSendUrls[] = $event->request->getUri()->__toString();
         });
 
@@ -241,8 +242,8 @@ abstract class TransportTestCase extends \yii\tests\TestCase
     public function testInvalidUrl()
     {
         $client = $this->createClient();
-        $request = $client->get('http:/example.com');
-        $this->assertEquals('http:/example.com', $request->getUri()->__toString());
+        $request = $client->get('htp:/example.com');
+        $this->assertEquals('htp:/example.com', $request->getUri()->__toString());
 
         $this->expectException(\yii\httpclient\Exception::class);
         $request->send();

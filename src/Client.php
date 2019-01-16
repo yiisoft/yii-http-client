@@ -24,14 +24,6 @@ use yii\http\MemoryStream;
 class Client extends Component
 {
     /**
-     * @event RequestEvent an event raised right before sending request.
-     */
-    const EVENT_BEFORE_SEND = 'beforeSend';
-    /**
-     * @event RequestEvent an event raised right after request has been sent.
-     */
-    const EVENT_AFTER_SEND = 'afterSend';
-    /**
      * JSON format
      */
     const FORMAT_JSON = 'json';
@@ -86,6 +78,14 @@ class Client extends Component
      */
     private $_transport = StreamTransport::class;
 
+    /**
+     * Constructor
+     * @param Transport|array|string|callable HTTP message transport.
+     */
+    public function __construct($transport = null)
+    {
+        if($transport !== null) $this->_transport = $transport;
+    }
 
     /**
      * Sets the HTTP message transport. It can be specified in one of the following forms:
@@ -378,9 +378,7 @@ class Client extends Component
      */
     public function beforeSend($request)
     {
-        $event = new RequestEvent();
-        $event->request = $request;
-        $this->trigger(self::EVENT_BEFORE_SEND, $event);
+        $this->trigger(ClientEvent::beforeSend($request));
     }
 
     /**
@@ -392,10 +390,7 @@ class Client extends Component
      */
     public function afterSend($request, $response)
     {
-        $event = new RequestEvent();
-        $event->request = $request;
-        $event->response = $response;
-        $this->trigger(self::EVENT_AFTER_SEND, $event);
+        $this->trigger(ClientEvent::afterSend($request, $response));
     }
 
     /**
