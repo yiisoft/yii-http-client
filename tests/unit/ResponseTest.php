@@ -5,6 +5,7 @@ namespace yii\httpclient\tests\unit;
 use yii\httpclient\Client;
 use yii\httpclient\Response;
 use yii\http\Cookie;
+use yii\helpers\Yii;
 
 class ResponseTest extends \yii\tests\TestCase
 {
@@ -101,7 +102,8 @@ class ResponseTest extends \yii\tests\TestCase
 
     public function testParseBody()
     {
-        $response = new Response([
+        $response = Yii::createObject([
+            '__class' => Response::class,
             'client' => new Client(),
             'format' => Client::FORMAT_URLENCODED,
         ]);

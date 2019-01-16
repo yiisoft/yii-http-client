@@ -44,7 +44,7 @@ class CurlTransportTest extends TransportTestCase
             'sslLocalPk' => '/path/to/client.key',
             'sslPassphrase' => 'passphrase of client.crt',
         ];
-        $contextOptions = $this->invoke($transport, 'composeCurlOptions', [$options]);
+        $contextOptions = $this->invokeMethod($transport, 'composeCurlOptions', [$options]);
 
         $expectedContextOptions = [
             CURLOPT_HTTP_VERSION => $options['protocolVersion'],

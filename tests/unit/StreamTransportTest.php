@@ -47,7 +47,7 @@ class StreamTransportTest extends TransportTestCase
             'sslLocalPk' => '/path/to/client.key',
             'sslPassphrase' => 'passphrase of client.crt',
         ];
-        $contextOptions = $this->invoke($transport, 'composeContextOptions', [$options]);
+        $contextOptions = $this->invokeMethod($transport, 'composeContextOptions', [$options]);
 
         $expectedContextOptions = [
             'http' => [

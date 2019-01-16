@@ -12,8 +12,8 @@ use yii\base\Component;
 use yii\base\ErrorHandler;
 use yii\http\Cookie;
 use yii\http\CookieCollection;
-use Yii;
 use yii\http\MessageTrait;
+use yii\helpers\Yii;
 
 /**
  * Message represents a base HTTP message.
@@ -112,7 +112,10 @@ class Message extends Component implements MessageInterface
             if (is_array($this->_cookies)) {
                 foreach ($this->_cookies as $cookie) {
                     if (!is_object($cookie)) {
-                        $cookie = new Cookie($cookie);
+                        $cookie = Yii::createObject(array_merge(
+                            $cookie, 
+                            ['__class' => Cookie::class])
+                        );
                     }
                     $cookieCollection->add($cookie);
                 }
@@ -133,7 +136,10 @@ class Message extends Component implements MessageInterface
         $cookieCollection = $this->getCookies();
         foreach ($cookies as $cookie) {
             if (!is_object($cookie)) {
-                $cookie = new Cookie($cookie);
+                $cookie = Yii::createObject(array_merge(
+                    $cookie, 
+                    ['__class' => Cookie::class])
+                );
             }
             $cookieCollection->add($cookie);
         }
