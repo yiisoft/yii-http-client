@@ -60,7 +60,7 @@ class XmlFormatter extends BaseObject implements FormatterInterface
     public function format(Request $request)
     {
         $contentType = $this->contentType;
-        $charset = $this->encoding ?? 'UTF-8';
+        $charset = $this->encoding ?? Yii::getEncoding();
         if (stripos($contentType, 'charset') === false) {
             $contentType .= '; charset=' . $charset;
         }
