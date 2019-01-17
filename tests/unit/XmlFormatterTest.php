@@ -30,6 +30,7 @@ class XmlFormatterTest extends \yii\tests\TestCase
         $expectedContent = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <request><name1>value1</name1><name2>value2</name2></request>
+
 XML;
         $this->assertEqualsWithoutLE($expectedContent, $request->getBody()->__toString());
         $this->assertEquals('application/xml; charset=UTF-8', $request->getHeaderLine('Content-Type'));
@@ -56,6 +57,7 @@ XML;
         $expectedContent = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <request><group><item><name1>value1</name1><name2>value2</name2></item></group></request>
+
 XML;
         $this->assertEqualsWithoutLE($expectedContent, $request->getBody()->__toString());
     }
@@ -81,6 +83,7 @@ XML;
         $expectedContent = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <request><stdClass><name>name1</name></stdClass></request>
+
 XML;
         $this->assertEqualsWithoutLE($expectedContent, $request->getBody()->__toString());
 
@@ -89,6 +92,7 @@ XML;
         $expectedContent = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <request><SplStack><stdClass><name>name1</name></stdClass></SplStack></request>
+
 XML;
         $this->assertEqualsWithoutLE($expectedContent, $request->getBody()->__toString());
     }
@@ -109,6 +113,7 @@ XML;
         $expectedContent = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <root/>
+
 XML;
         $this->assertEqualsWithoutLE($expectedContent, $request->getBody()->__toString());
     }
@@ -123,6 +128,7 @@ XML;
         $xml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <request><name1>value1</name1><name2>value2</name2></request>
+
 XML;
         $simpleXmlElement = simplexml_load_string($xml);
         $request->setParams($simpleXmlElement);
