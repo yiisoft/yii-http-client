@@ -47,9 +47,6 @@ abstract class TransportTestCase extends \yii\tests\TestCase
         $this->assertContains('<h1>Documentation</h1>', $content);
     }
 
-    /**
-     * @depends testSend
-     */
     public function testSendPost()
     {
         $client = $this->createClient();
@@ -62,9 +59,6 @@ abstract class TransportTestCase extends \yii\tests\TestCase
         $this->assertTrue($response->getIsOk());
     }
 
-    /**
-     * @depends testSend
-     */
     public function testBatchSend()
     {
         $client = $this->createClient();
@@ -92,9 +86,6 @@ abstract class TransportTestCase extends \yii\tests\TestCase
         $this->assertContains('Mailing Lists', $responses['support']->getBody()->__toString());
     }
 
-    /**
-     * @depends testSend
-     */
     public function testFollowLocation()
     {
         $client = $this->createClient();
@@ -119,9 +110,6 @@ abstract class TransportTestCase extends \yii\tests\TestCase
         $this->assertTrue($response->getIsOk());
     }
 
-    /**
-     * @depends testSend
-     */
     public function testSendError()
     {
         $client = $this->createClient();
@@ -136,9 +124,6 @@ abstract class TransportTestCase extends \yii\tests\TestCase
         $request->send();
     }
 
-    /**
-     * @depends testSend
-     */
     public function testSendEvents()
     {
         $client = $this->createClient();
