@@ -19,10 +19,25 @@ use yii\helpers\Json;
 class JsonParser extends BaseObject implements ParserInterface
 {
     /**
+     * @var bool $asArray whether to return objects in terms of associative arrays.
+     */
+    public $asArray = true;
+
+    /**
+     * @var int $depth the recursion depth.
+     */
+    public $depth = 512;
+
+    /**
+     * @var int $options the decode options.
+     */
+    public $options = 0;
+
+    /**
      * {@inheritdoc}
      */
     public function parse(Response $response)
     {
-        return Json::decode($response->getBody()->__toString());
+        return Json::decode($response->getBody()->__toString(), $this->asArray, $this->depth, $this->options);
     }
 }
