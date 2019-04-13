@@ -1,6 +1,7 @@
 <?php
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -15,6 +16,7 @@ use yii\debug\models\search\Base;
  * Log search model.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class SearchModel extends Base
@@ -32,7 +34,6 @@ class SearchModel extends Base
      */
     public $request;
 
-
     /**
      * {@inheritdoc}
      */
@@ -49,8 +50,8 @@ class SearchModel extends Base
     public function attributeLabels()
     {
         return [
-            'type' => 'Type',
-            'method' => 'Method',
+            'type'    => 'Type',
+            'method'  => 'Method',
             'request' => 'Request',
         ];
     }
@@ -60,15 +61,16 @@ class SearchModel extends Base
      *
      * @param array $params an array of parameter values indexed by parameter names
      * @param array $models data to return provider for
+     *
      * @return \yii\data\ArrayDataProvider
      */
     public function search($params, $models)
     {
         $dataProvider = new ArrayDataProvider([
-            'allModels' => $models,
+            'allModels'  => $models,
             'pagination' => false,
-            'sort' => [
-                'attributes' => ['duration', 'seq', 'type', 'method', 'request'],
+            'sort'       => [
+                'attributes'   => ['duration', 'seq', 'type', 'method', 'request'],
                 'defaultOrder' => [
                     'duration' => SORT_DESC,
                 ],

@@ -1,6 +1,7 @@
 <?php
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -19,43 +20,52 @@ use yii\http\Cookie;
  * @property array|object|null $parsedBody parsed body parameters.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Response extends Message implements ResponseInterface
 {
     /**
      * @var int status code.
+     *
      * @since 2.1.0
      */
     private $_statusCode;
     /**
      * @var string the reason phrase to use with the current status code.
+     *
      * @since 2.1.0
      */
     private $_reasonPhrase;
     /**
      * @var array|object|null parsed body parameters.
+     *
      * @since 2.1.0
      */
     private $_parsedBody;
 
-
     /**
      * Specifies body parameters.
+     *
      * @param mixed $data content data fields.
+     *
      * @return $this self reference.
+     *
      * @since 2.1.0
      */
     public function setParsedBody($data)
     {
         $this->_parsedBody = $data;
+
         return $this;
     }
 
     /**
      * Retrieve any parameters provided in the response body.
      * This method parses raw body content and returns its structured representation as array or object.
+     *
      * @return array|object|null the deserialized body parameters, `null` in case of empty body content.
+     *
      * @since 2.1.0
      */
     public function getParsedBody()
@@ -81,6 +91,7 @@ class Response extends Message implements ResponseInterface
                 $cookieCollection->add($this->parseCookie($cookieString));
             }
         }
+
         return $cookieCollection;
     }
 
@@ -95,7 +106,7 @@ class Response extends Message implements ResponseInterface
             }
             // take into account possible 'follow location'
             $statusCodeHeaders = $this->getHeader('http-code');
-            $this->_statusCode = empty($statusCodeHeaders) ? null : (int)end($statusCodeHeaders);
+            $this->_statusCode = empty($statusCodeHeaders) ? null : (int) end($statusCodeHeaders);
         }
 
         return $this->_statusCode;
@@ -103,18 +114,21 @@ class Response extends Message implements ResponseInterface
 
     /**
      * Specifies status code and, optionally, reason phrase.
-     * @param int $code the 3-digit integer result code to set.
+     *
+     * @param int    $code         the 3-digit integer result code to set.
      * @param string $reasonPhrase the reason phrase to use with the provided status code.
+     *
      * @since 2.1.0
      */
     public function setStatus($code, $reasonPhrase = '')
     {
-        $this->_statusCode = (int)$code;
+        $this->_statusCode = (int) $code;
         $this->_reasonPhrase = $reasonPhrase;
     }
 
     /**
      * {@inheritdoc}
+     *
      * @since 2.1.0
      */
     public function withStatus($code, $reasonPhrase = '')
@@ -125,11 +139,13 @@ class Response extends Message implements ResponseInterface
 
         $newInstance = clone $this;
         $newInstance->setStatus($code, $reasonPhrase);
+
         return $newInstance;
     }
 
     /**
      * {@inheritdoc}
+     *
      * @since 2.1.0
      */
     public function getReasonPhrase()
@@ -147,7 +163,8 @@ class Response extends Message implements ResponseInterface
     }
 
     /**
-     * Checks if response status code is OK (status code = 20x)
+     * Checks if response status code is OK (status code = 20x).
+     *
      * @return bool whether response is OK.
      */
     public function getIsOk()
@@ -157,6 +174,7 @@ class Response extends Message implements ResponseInterface
 
     /**
      * Returns default format automatically detected from headers and content.
+     *
      * @return string|null format name, 'null' - if detection failed.
      */
     protected function defaultFormat()
@@ -171,7 +189,9 @@ class Response extends Message implements ResponseInterface
 
     /**
      * Detects format from headers.
+     *
      * @param string[][] $headers source headers.
+     *
      * @return null|string format name, 'null' - if detection failed.
      */
     protected function detectFormatByHeaders(array $headers)
@@ -179,7 +199,7 @@ class Response extends Message implements ResponseInterface
         $headers = array_change_key_case($headers, CASE_LOWER);
 
         if (empty($headers['content-type'])) {
-            return null;
+            return;
         }
 
         $contentType = end($headers['content-type']);
@@ -192,13 +212,13 @@ class Response extends Message implements ResponseInterface
         if (stripos($contentType, 'xml') !== false) {
             return Client::FORMAT_XML;
         }
-
-        return null;
     }
 
     /**
      * Detects response format from raw content.
+     *
      * @param string $content raw response content.
+     *
      * @return null|string format name, 'null' - if detection failed.
      */
     protected function detectFormatByContent($content)
@@ -212,13 +232,13 @@ class Response extends Message implements ResponseInterface
         if (preg_match('/^<.*>$/s', $content)) {
             return Client::FORMAT_XML;
         }
-
-        return null;
     }
 
     /**
      * Parses cookie value string, creating a [[Cookie]] instance.
+     *
      * @param string $cookieString cookie header string.
+     *
      * @return Cookie cookie object.
      */
     private function parseCookie($cookieString)
@@ -247,19 +267,21 @@ class Response extends Message implements ResponseInterface
                 $cookie->$name = $value;
             }
         }
+
         return $cookie;
     }
 
     /**
      * @param string $rawName raw cookie parameter name.
+     *
      * @return string name of [[Cookie]] field.
      */
     private function normalizeCookieParamName($rawName)
     {
         static $nameMap = [
-            'expires' => 'expire',
+            'expires'  => 'expire',
             'httponly' => 'httpOnly',
-            'max-age' => 'maxAge',
+            'max-age'  => 'maxAge',
         ];
 
         $name = strtolower($rawName);
@@ -271,15 +293,17 @@ class Response extends Message implements ResponseInterface
     }
 
     /**
-     * @return ParserInterface message parser instance.
      * @throws Exception if unable to detect parser.
+     *
+     * @return ParserInterface message parser instance.
      */
     private function getParser()
     {
         $format = $this->getFormat();
         if ($format === null) {
-            throw new Exception("Unable to detect format for content parsing. Raw response:\n\n" . $this->toString());
+            throw new Exception("Unable to detect format for content parsing. Raw response:\n\n".$this->toString());
         }
+
         return $this->client->getParser($format);
     }
 }

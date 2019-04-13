@@ -1,6 +1,7 @@
 <?php
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -21,6 +22,7 @@ use Yii\Log\Logger;
  * @property array $types This property is read-only.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class HttpClientPanel extends Panel
@@ -38,7 +40,6 @@ class HttpClientPanel extends Panel
      */
     private $_httpClient = yii\httpclient\Client::class;
 
-
     /**
      * @param array $httpClient
      */
@@ -55,6 +56,7 @@ class HttpClientPanel extends Panel
         if (!is_object($this->_httpClient)) {
             $this->_httpClient = Yii::ensureObject($this->_httpClient, Client::class);
         }
+
         return $this->_httpClient;
     }
 
@@ -65,7 +67,7 @@ class HttpClientPanel extends Panel
     {
         $this->actions['request-execute'] = [
             '__class' => \yii\httpclient\debug\RequestExecuteAction::class,
-            'panel' => $this,
+            'panel'   => $this,
         ];
     }
 
@@ -88,13 +90,13 @@ class HttpClientPanel extends Panel
             return '';
         }
 
-        $queryTime = number_format($this->getTotalRequestTime($timings) * 1000) . ' ms';
+        $queryTime = number_format($this->getTotalRequestTime($timings) * 1000).' ms';
 
         return Yii::getApp()->view->render('@yii/httpclient/debug/views/summary', [
-            'timings' => $this->calculateTimings(),
-            'panel' => $this,
+            'timings'    => $this->calculateTimings(),
+            'panel'      => $this,
             'queryCount' => $queryCount,
-            'queryTime' => $queryTime,
+            'queryTime'  => $queryTime,
         ]);
     }
 
@@ -107,9 +109,9 @@ class HttpClientPanel extends Panel
         $dataProvider = $searchModel->search(Yii::getApp()->request->getQueryParams(), $this->getModels());
 
         return Yii::getApp()->view->render('@yii/httpclient/debug/views/detail', [
-            'panel' => $this,
+            'panel'        => $this,
             'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
         ]);
     }
 
@@ -138,12 +140,14 @@ class HttpClientPanel extends Panel
             'yii\httpclient\CurlTransport::*',
             'yii\httpclient\StreamTransport::*',
         ]);
+
         return ['messages' => $messages];
     }
 
     /**
      * Returns an  array of models that represents logs of the current request.
      * Can be used with data providers such as \yii\data\ArrayDataProvider.
+     *
      * @return array models
      */
     protected function getModels()
@@ -154,13 +158,13 @@ class HttpClientPanel extends Panel
 
             foreach ($timings as $seq => $dbTiming) {
                 $this->_models[] = [
-                    'method' => $this->getRequestMethod($dbTiming['info']),
-                    'type' => $this->getRequestType($dbTiming['category']),
-                    'request' => $dbTiming['info'],
-                    'duration' => ($dbTiming['duration'] * 1000), // in milliseconds
-                    'trace' => $dbTiming['trace'],
+                    'method'    => $this->getRequestMethod($dbTiming['info']),
+                    'type'      => $this->getRequestType($dbTiming['category']),
+                    'request'   => $dbTiming['info'],
+                    'duration'  => ($dbTiming['duration'] * 1000), // in milliseconds
+                    'trace'     => $dbTiming['trace'],
                     'timestamp' => ($dbTiming['timestamp'] * 1000), // in milliseconds
-                    'seq' => $seq,
+                    'seq'       => $seq,
                 ];
             }
         }
@@ -172,6 +176,7 @@ class HttpClientPanel extends Panel
      * Returns HTTP request method.
      *
      * @param string $timing timing procedure string
+     *
      * @return string request method such as GET, POST, PUT, etc.
      */
     protected function getRequestMethod($timing)
@@ -186,6 +191,7 @@ class HttpClientPanel extends Panel
      * Returns request type.
      *
      * @param string $category
+     *
      * @return string request type such as 'normal', 'batch'
      */
     protected function getRequestType($category)
@@ -197,6 +203,7 @@ class HttpClientPanel extends Panel
      * Returns total request time.
      *
      * @param array $timings
+     *
      * @return int total time
      */
     protected function getTotalRequestTime($timings)
@@ -211,7 +218,7 @@ class HttpClientPanel extends Panel
     }
 
     /**
-     * Returns array request methods
+     * Returns array request methods.
      *
      * @return array
      */
@@ -221,6 +228,7 @@ class HttpClientPanel extends Panel
             $this->_models,
             function ($result, $item) {
                 $result[$item['method']] = $item['method'];
+
                 return $result;
             },
             []
@@ -228,7 +236,7 @@ class HttpClientPanel extends Panel
     }
 
     /**
-     * Returns array request types
+     * Returns array request types.
      *
      * @return array
      */
@@ -236,7 +244,7 @@ class HttpClientPanel extends Panel
     {
         return [
             'normal' => 'Normal',
-            'batch' => 'Batch',
+            'batch'  => 'Batch',
         ];
     }
 }

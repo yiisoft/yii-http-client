@@ -34,4 +34,4 @@ class JsonFormatterTest extends \yii\tests\TestCase
         $formatter->format($request);
         $this->assertFalse($request->hasBody());
     }
-} 
+}

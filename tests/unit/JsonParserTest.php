@@ -3,7 +3,6 @@
 namespace yii\httpclient\tests\unit;
 
 use yii\helpers\Json;
-use yii\http\MemoryStream;
 use yii\httpclient\JsonParser;
 use yii\httpclient\Response;
 
@@ -26,21 +25,21 @@ class JsonParserTest extends \yii\tests\TestCase
     {
         $response = new Response();
         $data = [
-            'code' => 412,
+            'code'        => 412,
             'httpMessage' => 'Precondition Failed',
-            'message' => 'Request Active',
-            'data' => [
-                'requestId' => 10,
-                'userId' => '17',
-                'registryDate' => '2016-08-19 21:54:40',
+            'message'     => 'Request Active',
+            'data'        => [
+                'requestId'             => 10,
+                'userId'                => '17',
+                'registryDate'          => '2016-08-19 21:54:40',
                 'contractedServiceData' => [
-                        'id' => 6,
+                        'id'     => 6,
                         'status' => true,
                     ],
             ],
             'errors' => null,
         ];
-        $response->getBody()->write(<<<JSON
+        $response->getBody()->write(<<<'JSON'
 {
   "code": 412,
   "httpMessage": "Precondition Failed",
@@ -58,7 +57,6 @@ class JsonParserTest extends \yii\tests\TestCase
 }
 JSON
         );
-
 
         $parser = new JsonParser();
         $this->assertEquals($data, $parser->parse($response));

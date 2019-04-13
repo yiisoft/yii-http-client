@@ -1,6 +1,7 @@
 <?php
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -25,6 +26,7 @@ use yii\http\Uri;
  * @property array|null $params request params.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Request extends Message implements RequestInterface
@@ -35,6 +37,7 @@ class Request extends Message implements RequestInterface
     private $_url;
     /**
      * @var UriInterface URI instance.
+     *
      * @since 2.1.0
      */
     private $_uri;
@@ -44,11 +47,13 @@ class Request extends Message implements RequestInterface
     private $_method = 'GET';
     /**
      * @var array|null request params
+     *
      * @since 2.1.0
      */
     private $_params;
     /**
      * @var array multipart body parts information.
+     *
      * @since 2.1.0
      */
     private $_bodyParts = [];
@@ -58,13 +63,14 @@ class Request extends Message implements RequestInterface
     private $_options = [];
     /**
      * @var bool whether request object has been prepared for sending or not.
+     *
      * @see prepare()
      */
     private $isPrepared = false;
 
-
     /**
      * {@inheritdoc}
+     *
      * @since 2.1.0
      */
     public function getRequestTarget()
@@ -74,6 +80,7 @@ class Request extends Message implements RequestInterface
 
     /**
      * {@inheritdoc}
+     *
      * @since 2.1.0
      */
     public function withRequestTarget($requestTarget)
@@ -84,11 +91,13 @@ class Request extends Message implements RequestInterface
 
         $newInstance = clone $this;
         $newInstance->setUri(new Uri(['string' => $requestTarget]));
+
         return $newInstance;
     }
 
     /**
      * {@inheritdoc}
+     *
      * @since 2.1.0
      */
     public function getUri()
@@ -110,7 +119,9 @@ class Request extends Message implements RequestInterface
 
     /**
      * Specifies the URI instance.
+     *
      * @param UriInterface|\Closure|array $uri URI instance or its DI compatible configuration.
+     *
      * @since 2.1.0
      */
     public function setUri($uri)
@@ -120,6 +131,7 @@ class Request extends Message implements RequestInterface
 
     /**
      * {@inheritdoc}
+     *
      * @since 2.1.0
      */
     public function withUri(UriInterface $uri, $preserveHost = false)
@@ -140,19 +152,23 @@ class Request extends Message implements RequestInterface
 
     /**
      * Sets target URL.
+     *
      * @param string|array $url use a string to represent a URL (e.g. `http://some-domain.com`, `item/list`),
-     * or an array to represent a URL with query parameters (e.g. `['item/list', 'param1' => 'value1']`).
+     *                          or an array to represent a URL with query parameters (e.g. `['item/list', 'param1' => 'value1']`).
+     *
      * @return $this self reference.
      */
     public function setUrl($url)
     {
         $this->_url = $url;
         $this->setUri(null);
+
         return $this;
     }
 
     /**
      * Returns target URL.
+     *
      * @return string|array target URL or URL parameters
      */
     public function getUrl()
@@ -162,11 +178,13 @@ class Request extends Message implements RequestInterface
 
     /**
      * @param string $method request method
+     *
      * @return $this self reference.
      */
     public function setMethod($method)
     {
         $this->_method = $method;
+
         return $this;
     }
 
@@ -180,6 +198,7 @@ class Request extends Message implements RequestInterface
 
     /**
      * {@inheritdoc}
+     *
      * @since 2.1.0
      */
     public function withMethod($method)
@@ -190,11 +209,12 @@ class Request extends Message implements RequestInterface
 
         $newInstance = clone $this;
         $newInstance->setMethod($method);
+
         return $newInstance;
     }
 
     /**
-     * Following options are supported:
+     * Following options are supported:.
      *
      * - timeout: int, the maximum number of seconds to allow request to be executed.
      * - proxy: string, URI specifying address of proxy server. (e.g. tcp://proxy.example.com:5100).
@@ -211,11 +231,13 @@ class Request extends Message implements RequestInterface
      * there is a necessity for it.
      *
      * @param array $options request options.
+     *
      * @return $this self reference.
      */
     public function setOptions(array $options)
     {
         $this->_options = $options;
+
         return $this;
     }
 
@@ -230,7 +252,9 @@ class Request extends Message implements RequestInterface
     /**
      * Adds more options to already defined ones.
      * Please refer to [[setOptions()]] on how to specify options.
+     *
      * @param array $options additional options
+     *
      * @return $this self reference.
      */
     public function addOptions(array $options)
@@ -243,13 +267,17 @@ class Request extends Message implements RequestInterface
             }
             $this->_options[$key] = $value;
         }
+
         return $this;
     }
 
     /**
      * Sets the request params, which composes HTTP message.
+     *
      * @param array|null $params request params.
+     *
      * @return $this self reference.
+     *
      * @since 2.1.0
      */
     public function setParams($params)
@@ -260,12 +288,15 @@ class Request extends Message implements RequestInterface
         }
 
         $this->_params = $params;
+
         return $this;
     }
 
     /**
      * Returns the request params.
+     *
      * @return array|null request params.
+     *
      * @since 2.1.0
      */
     public function getParams()
@@ -275,8 +306,11 @@ class Request extends Message implements RequestInterface
 
     /**
      * Adds request params to the existing ones.
+     *
      * @param array $params additional request params.
+     *
      * @return $this self reference.
+     *
      * @since 2.1.0
      */
     public function addParams($params)
@@ -312,12 +346,15 @@ class Request extends Message implements RequestInterface
         if (!empty($this->_bodyParts)) {
             $this->prepareMultiPartContent($this->_bodyParts);
         }
+
         return parent::getBody();
     }
 
     /**
      * Returns parts for multipart body.
+     *
      * @return array body parts.
+     *
      * @since 2.1.0
      */
     public function getBodyParts()
@@ -327,9 +364,10 @@ class Request extends Message implements RequestInterface
 
     /**
      * Adds a content part for multi-part content request.
-     * @param string $name part (form input) name.
+     *
+     * @param string                                   $name     part (form input) name.
      * @param \Psr\Http\Message\StreamInterface|string $bodyPart body part content.
-     * @param array $options content part options, valid options are:
+     * @param array                                    $options  content part options, valid options are:
      *
      *  - contentType - string, part content type
      *  - fileName - string, name of the uploading file
@@ -347,10 +385,12 @@ class Request extends Message implements RequestInterface
 
     /**
      * Adds a file for upload as multi-part content.
+     *
      * @see addContent()
-     * @param string $name part (form input) name
+     *
+     * @param string $name     part (form input) name
      * @param string $fileName full name of the source file.
-     * @param array $options content part options, valid options are:
+     * @param array  $options  content part options, valid options are:
      *
      *  - fileName - string, base name of the uploading file, if not set it base name of the source file will be used.
      *  - mimeType - string, file mime type, if not set it will be determine automatically from source file.
@@ -372,10 +412,12 @@ class Request extends Message implements RequestInterface
 
     /**
      * Adds a string as a file upload.
+     *
      * @see addContent()
-     * @param string $name part (form input) name
+     *
+     * @param string $name    part (form input) name
      * @param string $content file content.
-     * @param array $options content part options, valid options are:
+     * @param array  $options content part options, valid options are:
      *
      *  - fileName - string, base name of the uploading file.
      *  - mimeType - string, file mime type, if not set it 'application/octet-stream' will be used.
@@ -388,8 +430,9 @@ class Request extends Message implements RequestInterface
             $options['mimeType'] = 'application/octet-stream';
         }
         if (!isset($options['fileName'])) {
-            $options['fileName'] = $name . '.dat';
+            $options['fileName'] = $name.'.dat';
         }
+
         return $this->addBodyPart($name, $content, $options);
     }
 
@@ -397,6 +440,7 @@ class Request extends Message implements RequestInterface
      * Prepares this request instance for sending.
      * This method should be invoked by transport before sending a request.
      * Do not call this method unless you know what you are doing.
+     *
      * @return $this self reference.
      */
     public function prepare()
@@ -414,7 +458,9 @@ class Request extends Message implements RequestInterface
 
     /**
      * Normalizes given URL value, filling it with actual string URL value.
+     *
      * @param array|string $url raw URL.
+     *
      * @return string full URL.
      */
     private function createFullUrl($url)
@@ -422,7 +468,7 @@ class Request extends Message implements RequestInterface
         if (is_array($url)) {
             $params = $url;
             if (isset($params[0])) {
-                $url = (string)$params[0];
+                $url = (string) $params[0];
                 unset($params[0]);
             } else {
                 $url = '';
@@ -433,7 +479,7 @@ class Request extends Message implements RequestInterface
             if (empty($url)) {
                 $url = $this->client->baseUrl;
             } elseif (!preg_match('/^https?:\\/\\//i', $url)) {
-                $url = rtrim($this->client->baseUrl, '/') . '/' . ltrim($url, '/');
+                $url = rtrim($this->client->baseUrl, '/').'/'.ltrim($url, '/');
             }
         }
 
@@ -451,7 +497,9 @@ class Request extends Message implements RequestInterface
 
     /**
      * Prepares multi-part content.
+     *
      * @param array $bodyParts multi body parts.
+     *
      * @see https://tools.ietf.org/html/rfc7578
      * @see https://tools.ietf.org/html/rfc2616#section-19.5.1 for the Content-Disposition header
      * @see https://tools.ietf.org/html/rfc6266 for more details on the Content-Disposition header
@@ -466,7 +514,7 @@ class Request extends Message implements RequestInterface
         if (!empty($data)) {
             foreach ($this->composeFormInputs($data) as $name => $value) {
                 $name = str_replace($disallowedChars, '_', $name);
-                $contentDisposition = 'Content-Disposition: form-data; name="' . $name . '"';
+                $contentDisposition = 'Content-Disposition: form-data; name="'.$name.'"';
                 $contentParts[] = implode("\r\n", [$contentDisposition, '', $value]);
             }
         }
@@ -475,23 +523,23 @@ class Request extends Message implements RequestInterface
         foreach ($bodyParts as $name => $contentParams) {
             $headers = [];
             $name = str_replace($disallowedChars, '_', $name);
-            $contentDisposition = 'Content-Disposition: form-data; name="' . $name . '"';
+            $contentDisposition = 'Content-Disposition: form-data; name="'.$name.'"';
             if (isset($contentParams['fileName'])) {
                 $fileName = str_replace($disallowedChars, '_', $contentParams['fileName']);
-                $contentDisposition .= '; filename="' . $fileName . '"';
+                $contentDisposition .= '; filename="'.$fileName.'"';
             }
             $headers[] = $contentDisposition;
             if (isset($contentParams['contentType'])) {
-                $headers[] = 'Content-Type: ' . $contentParams['contentType'];
+                $headers[] = 'Content-Type: '.$contentParams['contentType'];
             } elseif (isset($contentParams['mimeType'])) {
-                $headers[] = 'Content-Type: ' . $contentParams['mimeType'];
+                $headers[] = 'Content-Type: '.$contentParams['mimeType'];
             }
             $contentParts[] = implode("\r\n", [implode("\r\n", $headers), '', $contentParams['content']]);
         }
 
         // generate safe boundary :
         do {
-            $boundary = '---------------------' . md5(mt_rand() . microtime());
+            $boundary = '---------------------'.md5(mt_rand().microtime());
         } while (preg_grep("/{$boundary}/", $contentParts));
 
         // add boundary for each part :
@@ -513,8 +561,10 @@ class Request extends Message implements RequestInterface
     /**
      * Composes given data as form inputs submitted values, taking in account nested arrays.
      * Converts `['form' => ['name' => 'value']]` to `['form[name]' => 'value']`.
-     * @param array $data
+     *
+     * @param array  $data
      * @param string $baseKey
+     *
      * @return array
      */
     private function composeFormInputs(array $data, $baseKey = '')
@@ -522,7 +572,7 @@ class Request extends Message implements RequestInterface
         $result = [];
         foreach ($data as $key => $value) {
             if (!empty($baseKey)) {
-                $key = $baseKey . '[' . $key . ']';
+                $key = $baseKey.'['.$key.']';
             }
             if (is_array($value)) {
                 $result = array_merge($result, $this->composeFormInputs($value, $key));
@@ -543,11 +593,13 @@ class Request extends Message implements RequestInterface
         if ($this->hasCookies()) {
             $headers[] = $this->composeCookieHeader();
         }
+
         return $headers;
     }
 
     /**
      * Sends this request.
+     *
      * @return Response response instance.
      */
     public function send()
@@ -558,6 +610,7 @@ class Request extends Message implements RequestInterface
     /**
      * This method is invoked right before this request is sent.
      * The method will invoke [[Client::beforeSend()]] and trigger the [[EVENT_BEFORE_SEND]] event.
+     *
      * @since 2.0.1
      */
     public function beforeSend()
@@ -570,7 +623,9 @@ class Request extends Message implements RequestInterface
     /**
      * This method is invoked right after this request is sent.
      * The method will invoke [[Client::afterSend()]] and trigger the [[EVENT_AFTER_SEND]] event.
+     *
      * @param Response $response received response instance.
+     *
      * @since 2.0.1
      */
     public function afterSend($response)
@@ -578,7 +633,6 @@ class Request extends Message implements RequestInterface
         $this->client->afterSend($this, $response);
 
         $this->trigger(RequestEvent::afterSend($this, $response));
-
     }
 
     /**
@@ -590,11 +644,11 @@ class Request extends Message implements RequestInterface
             $this->prepare();
         }
 
-        $result = strtoupper($this->getMethod()) . ' ' . $this->getUri();
+        $result = strtoupper($this->getMethod()).' '.$this->getUri();
 
         $parentResult = parent::toString();
         if ($parentResult !== '') {
-            $result .= "\n" . $parentResult;
+            $result .= "\n".$parentResult;
         }
 
         return $result;
@@ -607,9 +661,10 @@ class Request extends Message implements RequestInterface
     {
         $parts = [];
         foreach ($this->getCookies() as $cookie) {
-            $parts[] = $cookie->name . '=' . $cookie->value;
+            $parts[] = $cookie->name.'='.$cookie->value;
         }
-        return 'Cookie: ' . implode(';', $parts);
+
+        return 'Cookie: '.implode(';', $parts);
     }
 
     /**

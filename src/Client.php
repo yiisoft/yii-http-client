@@ -1,6 +1,7 @@
 <?php
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -19,26 +20,29 @@ use yii\http\MemoryStream;
  * in getter and setter. See [[getTransport()]] and [[setTransport()]] for details.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Client extends Component
 {
     /**
-     * JSON format
+     * JSON format.
      */
     const FORMAT_JSON = 'json';
     /**
-     * urlencoded by RFC1738 query string, like name1=value1&name2=value2
+     * urlencoded by RFC1738 query string, like name1=value1&name2=value2.
+     *
      * @see http://php.net/manual/en/function.urlencode.php
      */
     const FORMAT_URLENCODED = 'urlencoded';
     /**
-     * urlencoded by PHP_QUERY_RFC3986 query string, like name1=value1&name2=value2
+     * urlencoded by PHP_QUERY_RFC3986 query string, like name1=value1&name2=value2.
+     *
      * @see http://php.net/manual/en/function.rawurlencode.php
      */
     const FORMAT_RAW_URLENCODED = 'raw-urlencoded';
     /**
-     * XML format
+     * XML format.
      */
     const FORMAT_XML = 'xml';
 
@@ -48,14 +52,14 @@ class Client extends Component
     public $baseUrl;
     /**
      * @var array the formatters for converting data into the content of the specified [[Message::$format]].
-     * The array keys are the format names, and the array values are the corresponding configurations
-     * for creating the formatter objects.
+     *            The array keys are the format names, and the array values are the corresponding configurations
+     *            for creating the formatter objects.
      */
     public $formatters = [];
     /**
      * @var array the parsers for converting content of the specified [[Message::$format]] into the data.
-     * The array keys are the format names, and the array values are the corresponding configurations
-     * for creating the parser objects.
+     *            The array keys are the format names, and the array values are the corresponding configurations
+     *            for creating the parser objects.
      */
     public $parsers = [];
     /**
@@ -68,7 +72,8 @@ class Client extends Component
     public $responseConfig = [];
     /**
      * @var int maximum symbols count of the request content, which should be taken to compose a
-     * log and profile messages. Exceeding content will be truncated.
+     *          log and profile messages. Exceeding content will be truncated.
+     *
      * @see createRequestLogToken()
      */
     public $contentLoggingMaxSize = 2000;
@@ -79,16 +84,19 @@ class Client extends Component
     private $_transport = StreamTransport::class;
 
     /**
-     * Constructor
+     * Constructor.
+     *
      * @param Transport|array|string|callable HTTP message transport.
      */
     public function __construct($transport = null)
     {
-        if($transport !== null) $this->_transport = $transport;
+        if ($transport !== null) {
+            $this->_transport = $transport;
+        }
     }
 
     /**
-     * Sets the HTTP message transport. It can be specified in one of the following forms:
+     * Sets the HTTP message transport. It can be specified in one of the following forms:.
      *
      * - an instance of `Transport`: actual transport object to be used
      * - a string: representing the class name of the object to be created
@@ -96,6 +104,7 @@ class Client extends Component
      *   and the rest of the name-value pairs will be used to initialize the corresponding object properties
      * - a PHP callable: either an anonymous function or an array representing a class method (`[$class or $object, $method]`).
      *   The callable should return a new instance of the object being created.
+     *
      * @param Transport|array|string $transport HTTP message transport
      */
     public function setTransport($transport)
@@ -111,26 +120,30 @@ class Client extends Component
         if (!is_object($this->_transport)) {
             $this->_transport = Yii::createObject($this->_transport);
         }
+
         return $this->_transport;
     }
 
     /**
      * Returns HTTP message formatter instance for the specified format.
+     *
      * @param string $format format name.
-     * @return FormatterInterface formatter instance.
+     *
      * @throws InvalidArgumentException on invalid format name.
+     *
+     * @return FormatterInterface formatter instance.
      */
     public function getFormatter($format)
     {
         static $defaultFormatters = [
-            self::FORMAT_JSON => JsonFormatter::class,
+            self::FORMAT_JSON       => JsonFormatter::class,
             self::FORMAT_URLENCODED => [
-                '__class' => UrlEncodedFormatter::class,
-                'encodingType' => PHP_QUERY_RFC1738
+                '__class'      => UrlEncodedFormatter::class,
+                'encodingType' => PHP_QUERY_RFC1738,
             ],
             self::FORMAT_RAW_URLENCODED => [
-                '__class' => UrlEncodedFormatter::class,
-                'encodingType' => PHP_QUERY_RFC3986
+                '__class'      => UrlEncodedFormatter::class,
+                'encodingType' => PHP_QUERY_RFC3986,
             ],
             self::FORMAT_XML => XmlFormatter::class,
         ];
@@ -151,17 +164,20 @@ class Client extends Component
 
     /**
      * Returns HTTP message parser instance for the specified format.
+     *
      * @param string $format format name
-     * @return ParserInterface parser instance.
+     *
      * @throws InvalidArgumentException on invalid format name.
+     *
+     * @return ParserInterface parser instance.
      */
     public function getParser($format)
     {
         static $defaultParsers = [
-            self::FORMAT_JSON => JsonParser::class,
-            self::FORMAT_URLENCODED => UrlEncodedParser::class,
+            self::FORMAT_JSON           => JsonParser::class,
+            self::FORMAT_URLENCODED     => UrlEncodedParser::class,
             self::FORMAT_RAW_URLENCODED => UrlEncodedParser::class,
-            self::FORMAT_XML => XmlParser::class,
+            self::FORMAT_XML            => XmlParser::class,
         ];
 
         if (!isset($this->parsers[$format])) {
@@ -188,13 +204,16 @@ class Client extends Component
             $config['__class'] = Request::class;
         }
         $config['client'] = $this;
+
         return Yii::createObject($config);
     }
 
     /**
      * Creates a response instance.
-     * @param \Psr\Http\Message\StreamInterface|string $body raw content
-     * @param array $headers headers list.
+     *
+     * @param \Psr\Http\Message\StreamInterface|string $body    raw content
+     * @param array                                    $headers headers list.
+     *
      * @return Response request instance.
      */
     public function createResponse($body = null, array $headers = [])
@@ -213,14 +232,18 @@ class Client extends Component
             $response->setBody($body);
         }
         $response->setHeaders($headers);
+
         return $response;
     }
 
     /**
      * Performs given request.
+     *
      * @param Request $request request to be sent.
-     * @return Response response instance.
+     *
      * @throws Exception on failure.
+     *
+     * @return Response response instance.
      */
     public function send($request)
     {
@@ -244,6 +267,7 @@ class Client extends Component
      * ```
      *
      * @param Request[] $requests requests to perform.
+     *
      * @return Response[] responses list.
      */
     public function batchSend(array $requests)
@@ -254,15 +278,17 @@ class Client extends Component
     /**
      * Composes the log/profiling message token for the given HTTP request parameters.
      * This method should be used by transports during request sending logging.
+     *
      * @param Request $request request instance.
+     *
      * @return string log token.
      */
     public function createRequestLogToken($request)
     {
-        $token = $request->getMethod() . ' ' . $request->getUri()->__toString();
+        $token = $request->getMethod().' '.$request->getUri()->__toString();
         $headers = $request->getHeaders();
         if (!empty($headers)) {
-            $token .= "\n" . implode("\n", $request->composeHeaderLines());
+            $token .= "\n".implode("\n", $request->composeHeaderLines());
         }
         if ($request->hasBody()) {
             $body = $request->getBody();
@@ -270,9 +296,9 @@ class Client extends Component
                 // log body only if its pointer can be rewind
                 $body->seek(0);
                 if ($body->getSize() > $this->contentLoggingMaxSize) {
-                    $token .= "\n\n" . $body->read($this->contentLoggingMaxSize) . '...';
+                    $token .= "\n\n".$body->read($this->contentLoggingMaxSize).'...';
                 } else {
-                    $token .= "\n\n" . $body->__toString();
+                    $token .= "\n\n".$body->__toString();
                 }
             }
         }
@@ -284,10 +310,12 @@ class Client extends Component
 
     /**
      * Creates 'GET' request.
-     * @param array|string $url target URL.
-     * @param array|string $data if array - request data, otherwise - request content.
-     * @param array $headers request headers.
-     * @param array $options request options.
+     *
+     * @param array|string $url     target URL.
+     * @param array|string $data    if array - request data, otherwise - request content.
+     * @param array        $headers request headers.
+     * @param array        $options request options.
+     *
      * @return Request request instance.
      */
     public function get($url, $data = null, $headers = [], $options = [])
@@ -297,10 +325,12 @@ class Client extends Component
 
     /**
      * Creates 'POST' request.
-     * @param array|string $url target URL.
-     * @param array|string $data if array - request data, otherwise - request content.
-     * @param array $headers request headers.
-     * @param array $options request options.
+     *
+     * @param array|string $url     target URL.
+     * @param array|string $data    if array - request data, otherwise - request content.
+     * @param array        $headers request headers.
+     * @param array        $options request options.
+     *
      * @return Request request instance.
      */
     public function post($url, $data = null, $headers = [], $options = [])
@@ -310,10 +340,12 @@ class Client extends Component
 
     /**
      * Creates 'PUT' request.
-     * @param array|string $url target URL.
-     * @param array|string $data if array - request data, otherwise - request content.
-     * @param array $headers request headers.
-     * @param array $options request options.
+     *
+     * @param array|string $url     target URL.
+     * @param array|string $data    if array - request data, otherwise - request content.
+     * @param array        $headers request headers.
+     * @param array        $options request options.
+     *
      * @return Request request instance.
      */
     public function put($url, $data = null, $headers = [], $options = [])
@@ -323,10 +355,12 @@ class Client extends Component
 
     /**
      * Creates 'PATCH' request.
-     * @param array|string $url target URL.
-     * @param array|string $data if array - request data, otherwise - request content.
-     * @param array $headers request headers.
-     * @param array $options request options.
+     *
+     * @param array|string $url     target URL.
+     * @param array|string $data    if array - request data, otherwise - request content.
+     * @param array        $headers request headers.
+     * @param array        $options request options.
+     *
      * @return Request request instance.
      */
     public function patch($url, $data = null, $headers = [], $options = [])
@@ -336,10 +370,12 @@ class Client extends Component
 
     /**
      * Creates 'DELETE' request.
-     * @param array|string $url target URL.
-     * @param array|string $data if array - request data, otherwise - request content.
-     * @param array $headers request headers.
-     * @param array $options request options.
+     *
+     * @param array|string $url     target URL.
+     * @param array|string $data    if array - request data, otherwise - request content.
+     * @param array        $headers request headers.
+     * @param array        $options request options.
+     *
      * @return Request request instance.
      */
     public function delete($url, $data = null, $headers = [], $options = [])
@@ -349,9 +385,11 @@ class Client extends Component
 
     /**
      * Creates 'HEAD' request.
-     * @param array|string $url target URL.
-     * @param array $headers request headers.
-     * @param array $options request options.
+     *
+     * @param array|string $url     target URL.
+     * @param array        $headers request headers.
+     * @param array        $options request options.
+     *
      * @return Request request instance.
      */
     public function head($url, $headers = [], $options = [])
@@ -361,8 +399,10 @@ class Client extends Component
 
     /**
      * Creates 'OPTIONS' request.
-     * @param array|string $url target URL.
-     * @param array $options request options.
+     *
+     * @param array|string $url     target URL.
+     * @param array        $options request options.
+     *
      * @return Request request instance.
      */
     public function options($url, $options = [])
@@ -373,7 +413,9 @@ class Client extends Component
     /**
      * This method is invoked right before request is sent.
      * The method will trigger the [[EVENT_BEFORE_SEND]] event.
+     *
      * @param Request $request request instance.
+     *
      * @since 2.0.1
      */
     public function beforeSend($request)
@@ -384,8 +426,10 @@ class Client extends Component
     /**
      * This method is invoked right after request is sent.
      * The method will trigger the [[EVENT_AFTER_SEND]] event.
-     * @param Request $request request instance.
+     *
+     * @param Request  $request  request instance.
      * @param Response $response received response instance.
+     *
      * @since 2.0.1
      */
     public function afterSend($request, $response)
@@ -394,11 +438,12 @@ class Client extends Component
     }
 
     /**
-     * @param string $method
+     * @param string       $method
      * @param array|string $url
      * @param array|string $params
-     * @param array $headers
-     * @param array $options
+     * @param array        $headers
+     * @param array        $options
+     *
      * @return Request request instance.
      */
     private function createRequestShortcut($method, $url, $params, $headers, $options)

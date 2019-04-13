@@ -2,8 +2,8 @@
 
 namespace yii\httpclient\tests\unit;
 
-use yii\httpclient\UrlEncodedFormatter;
 use yii\httpclient\Request;
+use yii\httpclient\UrlEncodedFormatter;
 
 class UrlEncodedFormatterTest extends \yii\tests\TestCase
 {

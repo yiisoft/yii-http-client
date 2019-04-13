@@ -1,6 +1,7 @@
 <?php
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -10,13 +11,14 @@ namespace yii\httpclient;
 use yii\helpers\Yii;
 
 /**
- * CurlTransport sends HTTP messages using [Client URL Library (cURL)](http://php.net/manual/en/book.curl.php)
+ * CurlTransport sends HTTP messages using [Client URL Library (cURL)](http://php.net/manual/en/book.curl.php).
  *
  * Note: this transport requires PHP 'curl' extension installed.
  *
  * For this transport, you may setup request options as [cURL Options](http://php.net/manual/en/function.curl-setopt.php)
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class CurlTransport extends Transport
@@ -42,6 +44,7 @@ class CurlTransport extends Transport
             $responseContent = curl_exec($curlResource);
         } catch (\Exception $e) {
             Yii::endProfile($token, __METHOD__);
+
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
 
@@ -54,7 +57,7 @@ class CurlTransport extends Transport
         curl_close($curlResource);
 
         if ($errorNumber > 0) {
-            throw new Exception('Curl error: #' . $errorNumber . ' - ' . $errorMessage);
+            throw new Exception('Curl error: #'.$errorNumber.' - '.$errorMessage);
         }
 
         $response = $request->client->createResponse($responseContent, $responseHeaders);
@@ -81,7 +84,7 @@ class CurlTransport extends Transport
             $curlOptions = $this->prepare($request);
             $curlResource = $this->initCurl($curlOptions);
 
-            $token .= $request->client->createRequestLogToken($request) . "\n\n";
+            $token .= $request->client->createRequestLogToken($request)."\n\n";
 
             $responseHeaders[$key] = [];
             $this->setHeaderOutput($curlResource, $responseHeaders[$key]);
@@ -105,6 +108,7 @@ class CurlTransport extends Transport
             } while ($isRunning > 0 && $curlExecCode === CURLM_OK);
         } catch (\Exception $e) {
             Yii::endProfile($token, __METHOD__);
+
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
 
@@ -124,12 +128,15 @@ class CurlTransport extends Transport
             $request->afterSend($response);
             $responses[$key] = $response;
         }
+
         return $responses;
     }
 
     /**
      * Prepare request for execution, creating cURL resource for it.
+     *
      * @param Request $request request instance.
+     *
      * @return array cURL options.
      */
     private function prepare($request)
@@ -164,7 +171,9 @@ class CurlTransport extends Transport
 
     /**
      * Initializes cURL resource.
+     *
      * @param array $curlOptions cURL options.
+     *
      * @return resource prepared cURL resource.
      */
     private function initCurl(array $curlOptions)
@@ -179,19 +188,21 @@ class CurlTransport extends Transport
 
     /**
      * Composes cURL options from raw request options.
+     *
      * @param array $options raw request options.
+     *
      * @return array cURL options, in format: [curl_constant => value].
      */
     private function composeCurlOptions(array $options)
     {
         static $optionMap = [
             'protocolVersion' => CURLOPT_HTTP_VERSION,
-            'maxRedirects' => CURLOPT_MAXREDIRS,
-            'sslCapath' => CURLOPT_CAPATH,
-            'sslCafile' => CURLOPT_CAINFO,
-            'sslLocalCert' => CURLOPT_SSLCERT,
-            'sslLocalPk' => CURLOPT_SSLKEY,
-            'sslPassphrase' => CURLOPT_SSLCERTPASSWD,
+            'maxRedirects'    => CURLOPT_MAXREDIRS,
+            'sslCapath'       => CURLOPT_CAPATH,
+            'sslCafile'       => CURLOPT_CAINFO,
+            'sslLocalCert'    => CURLOPT_SSLCERT,
+            'sslLocalPk'      => CURLOPT_SSLKEY,
+            'sslPassphrase'   => CURLOPT_SSLCERTPASSWD,
         ];
 
         $curlOptions = [];
@@ -205,12 +216,12 @@ class CurlTransport extends Transport
                     $key = strtoupper($key);
                     if (strpos($key, 'SSL') === 0) {
                         $key = substr($key, 3);
-                        $constantName = 'CURLOPT_SSL_' . $key;
+                        $constantName = 'CURLOPT_SSL_'.$key;
                         if (!defined($constantName)) {
-                            $constantName = 'CURLOPT_SSL' . $key;
+                            $constantName = 'CURLOPT_SSL'.$key;
                         }
                     } else {
-                        $constantName = 'CURLOPT_' . strtoupper($key);
+                        $constantName = 'CURLOPT_'.strtoupper($key);
                     }
                     $curlOptions[constant($constantName)] = $value;
                 }
@@ -222,16 +233,18 @@ class CurlTransport extends Transport
 
     /**
      * Setup a variable, which should collect the cURL response headers.
+     *
      * @param resource $curlResource cURL resource.
-     * @param array $output variable, which should collection headers.
+     * @param array    $output       variable, which should collection headers.
      */
     private function setHeaderOutput($curlResource, array &$output)
     {
-        curl_setopt($curlResource, CURLOPT_HEADERFUNCTION, function($resource, $headerString) use (&$output) {
+        curl_setopt($curlResource, CURLOPT_HEADERFUNCTION, function ($resource, $headerString) use (&$output) {
             $header = trim($headerString, "\n\r");
             if (strlen($header) > 0) {
                 $output[] = $header;
             }
+
             return mb_strlen($headerString, '8bit');
         });
     }

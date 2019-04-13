@@ -1,6 +1,7 @@
 <?php
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -21,6 +22,7 @@ use yii\http\MemoryStream;
  * XmlFormatter formats HTTP message as XML.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class XmlFormatter extends BaseObject implements FormatterInterface
@@ -43,16 +45,17 @@ class XmlFormatter extends BaseObject implements FormatterInterface
     public $rootTag = 'request';
     /**
      * @var string the name of the elements that represent the array elements with numeric keys.
+     *
      * @since 2.0.1
      */
     public $itemTag = 'item';
     /**
      * @var bool whether to interpret objects implementing the [[\Traversable]] interface as arrays.
-     * Defaults to `true`.
+     *           Defaults to `true`.
+     *
      * @since 2.0.1
      */
     public $useTraversableAsArray = true;
-
 
     /**
      * {@inheritdoc}
@@ -62,7 +65,7 @@ class XmlFormatter extends BaseObject implements FormatterInterface
         $contentType = $this->contentType;
         $charset = $this->encoding ?? Yii::getEncoding();
         if (stripos($contentType, 'charset') === false) {
-            $contentType .= '; charset=' . $charset;
+            $contentType .= '; charset='.$charset;
         }
         $request->setHeader('Content-Type', $contentType);
 
@@ -90,7 +93,7 @@ class XmlFormatter extends BaseObject implements FormatterInterface
 
     /**
      * @param DOMElement $element
-     * @param mixed $data
+     * @param mixed      $data
      */
     protected function buildXml($element, $data)
     {

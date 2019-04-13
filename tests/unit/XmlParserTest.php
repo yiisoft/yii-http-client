@@ -2,15 +2,15 @@
 
 namespace yii\httpclient\tests\unit;
 
-use yii\httpclient\XmlParser;
 use yii\httpclient\Response;
+use yii\httpclient\XmlParser;
 
 class XmlParserTest extends \yii\tests\TestCase
 {
     public function testParse()
     {
         $response = new Response();
-        $xml = <<<XML
+        $xml = <<<'XML'
 <?xml version="1.0" encoding="utf-8"?>
 <main>
     <name1>value1</name1>
@@ -33,7 +33,7 @@ XML;
     public function testParseCData()
     {
         $response = new Response();
-        $xml = <<<XML
+        $xml = <<<'XML'
 <?xml version="1.0" encoding="utf-8"?>
 <main>
     <name1><![CDATA[<tag>]]></name1>
@@ -56,7 +56,7 @@ XML;
     public function testParseEncoding()
     {
         $response = new Response();
-        $xml = <<<XML
+        $xml = <<<'XML'
 <?xml version="1.0" encoding="windows-1251"?>
 <main>
     <enname>test</enname>
@@ -80,7 +80,7 @@ XML;
     public function testParseGroupTag()
     {
         $response = new Response();
-        $xml = <<<XML
+        $xml = <<<'XML'
 <?xml version="1.0" encoding="utf-8"?>
 <items>
     <item>
@@ -98,11 +98,11 @@ XML;
         $data = [
             'item' => [
                 [
-                    'id' => '1',
+                    'id'   => '1',
                     'name' => 'item1',
                 ],
                 [
-                    'id' => '2',
+                    'id'   => '2',
                     'name' => 'item2',
                 ],
             ],

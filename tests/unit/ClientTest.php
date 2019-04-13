@@ -4,16 +4,16 @@ namespace yii\httpclient\tests\unit;
 
 use yii\http\MemoryStream;
 use yii\httpclient\Client;
+use yii\httpclient\CurlTransport;
 use yii\httpclient\JsonFormatter;
-use yii\httpclient\UrlEncodedFormatter;
-use yii\httpclient\XmlFormatter;
 use yii\httpclient\JsonParser;
-use yii\httpclient\UrlEncodedParser;
-use yii\httpclient\XmlParser;
 use yii\httpclient\Request;
 use yii\httpclient\Response;
 use yii\httpclient\Transport;
-use yii\httpclient\CurlTransport;
+use yii\httpclient\UrlEncodedFormatter;
+use yii\httpclient\UrlEncodedParser;
+use yii\httpclient\XmlFormatter;
+use yii\httpclient\XmlParser;
 
 class ClientTest extends \yii\tests\TestCase
 {
@@ -23,8 +23,8 @@ class ClientTest extends \yii\tests\TestCase
         $client->formatters = [
             'testString' => UrlEncodedFormatter::class,
             'testConfig' => [
-                '__class' => UrlEncodedFormatter::class,
-                'encodingType' => PHP_QUERY_RFC3986
+                '__class'      => UrlEncodedFormatter::class,
+                'encodingType' => PHP_QUERY_RFC3986,
             ],
         ];
 
@@ -37,7 +37,8 @@ class ClientTest extends \yii\tests\TestCase
     }
 
     /**
-     * Data provider for [[testGetDefaultFormatters]]
+     * Data provider for [[testGetDefaultFormatters]].
+     *
      * @return array test data
      */
     public function dataProviderDefaultFormatters()
@@ -96,7 +97,8 @@ class ClientTest extends \yii\tests\TestCase
     }
 
     /**
-     * Data provider for [[testGetDefaultParsers]]
+     * Data provider for [[testGetDefaultParsers]].
+     *
      * @return array test data
      */
     public function dataProviderDefaultParsers()
@@ -171,7 +173,7 @@ class ClientTest extends \yii\tests\TestCase
 
         $body = new MemoryStream();
         $client->requestConfig = [
-            'body' => $body
+            'body' => $body,
         ];
         $request = $client->createRequest();
         $this->assertSame($body, $request->getBody());
@@ -188,10 +190,10 @@ class ClientTest extends \yii\tests\TestCase
         $responseFormat = 'testFormat';
         $responseContent = 'test content';
         $client->responseConfig = [
-            'format' => $responseFormat
+            'format' => $responseFormat,
         ];
         $response = $client->createResponse($responseContent);
         $this->assertEquals($responseFormat, $response->getFormat());
         $this->assertEquals($responseContent, $response->getBody()->__toString());
     }
-} 
+}

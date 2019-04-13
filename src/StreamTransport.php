@@ -1,6 +1,7 @@
 <?php
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -12,11 +13,12 @@ use yii\helpers\Inflector;
 use yii\helpers\Yii;
 
 /**
- * StreamTransport sends HTTP messages using [Streams](http://php.net/manual/en/book.stream.php)
+ * StreamTransport sends HTTP messages using [Streams](http://php.net/manual/en/book.stream.php).
  *
  * For this transport, you may setup request options using [Context Options](http://php.net/manual/en/context.php)
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class StreamTransport extends Transport
@@ -35,7 +37,7 @@ class StreamTransport extends Transport
 
         $contextOptions = [
             'http' => [
-                'method' => $method,
+                'method'        => $method,
                 'ignore_errors' => true,
             ],
             'ssl' => [
@@ -65,6 +67,7 @@ class StreamTransport extends Transport
             fclose($stream);
         } catch (\Exception $e) {
             Yii::endProfile($token, __METHOD__);
+
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
 
@@ -79,7 +82,9 @@ class StreamTransport extends Transport
 
     /**
      * Composes stream context options from raw request options.
+     *
      * @param array $options raw request options.
+     *
      * @return array stream context options.
      */
     private function composeContextOptions(array $options)

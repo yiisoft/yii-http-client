@@ -1,6 +1,7 @@
 <?php
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -13,6 +14,7 @@ use yii\base\BaseObject;
  * XmlParser parses HTTP message content as XML.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class XmlParser extends BaseObject implements ParserInterface
@@ -31,12 +33,15 @@ class XmlParser extends BaseObject implements ParserInterface
 
         $dom = new \DOMDocument('1.0', $encoding);
         $dom->loadXML($response->getBody()->__toString(), LIBXML_NOCDATA);
+
         return $this->convertXmlToArray(simplexml_import_dom($dom->documentElement));
     }
 
     /**
      * Converts XML document to array.
+     *
      * @param string|\SimpleXMLElement $xml xml to process.
+     *
      * @return array XML array representation.
      */
     protected function convertXmlToArray($xml)
@@ -50,6 +55,7 @@ class XmlParser extends BaseObject implements ParserInterface
                 $result[$key] = $this->convertXmlToArray($value);
             }
         }
+
         return $result;
     }
 }

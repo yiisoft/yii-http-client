@@ -2,10 +2,10 @@
 
 namespace yii\httpclient\tests\unit;
 
+use yii\helpers\Yii;
 use yii\http\MemoryStream;
 use yii\httpclient\Client;
 use yii\httpclient\Request;
-use yii\helpers\Yii;
 
 class RequestTest extends \yii\tests\TestCase
 {
@@ -27,7 +27,7 @@ class RequestTest extends \yii\tests\TestCase
         $this->assertEquals($params, $message->getParams());
 
         $additionalParams = [
-            'field3' => 'value3'
+            'field3' => 'value3',
         ];
         $message->addParams($additionalParams);
         $this->assertEquals(array_merge($params, $additionalParams), $message->getParams());
@@ -56,7 +56,7 @@ class RequestTest extends \yii\tests\TestCase
         $request = new Request();
 
         $options = [
-            'timeout' => 10,
+            'timeout'   => 10,
             'userAgent' => 'test',
         ];
         $request->setOptions($options);
@@ -71,20 +71,20 @@ class RequestTest extends \yii\tests\TestCase
         $request = new Request();
 
         $options = [
-            'timeout' => 10,
+            'timeout'   => 10,
             'userAgent' => 'test',
         ];
         $request->setOptions($options);
 
         $request->addOptions([
             'userAgent' => 'override',
-            'test' => 'new',
+            'test'      => 'new',
         ]);
 
         $expectedOptions = [
-            'timeout' => 10,
+            'timeout'   => 10,
             'userAgent' => 'override',
-            'test' => 'new',
+            'test'      => 'new',
         ];
         $this->assertEquals($expectedOptions, $request->getOptions());
 
@@ -92,7 +92,7 @@ class RequestTest extends \yii\tests\TestCase
         $request = new Request();
         $request->setOptions([
             'http' => [
-                'method' => 'GET',
+                'method'        => 'GET',
                 'ignore_errors' => true,
             ],
         ]);
@@ -106,7 +106,7 @@ class RequestTest extends \yii\tests\TestCase
         ]);
         $expectedOptions = [
             'http' => [
-                'method' => 'POST',
+                'method'        => 'POST',
                 'ignore_errors' => true,
             ],
             'ssl' => [
@@ -123,15 +123,15 @@ class RequestTest extends \yii\tests\TestCase
         ]);
         $request->addOptions([
             'timeout' => 300,
-            10006 => '',
-            52 => true,
-            58 => true,
+            10006     => '',
+            52        => true,
+            58        => true,
         ]);
         $expectedOptions = [
             'timeout' => 300,
-            10006 => '',
-            52 => true,
-            58 => true,
+            10006     => '',
+            52        => true,
+            58        => true,
         ];
         $this->assertEquals($expectedOptions, $request->getOptions());
     }
@@ -143,9 +143,9 @@ class RequestTest extends \yii\tests\TestCase
     {
         $request = Yii::createObject([
             '__class' => Request::class,
-            'client' => new Client(),
-            'format' => Client::FORMAT_URLENCODED,
-            'method' => 'POST',
+            'client'  => new Client(),
+            'format'  => Client::FORMAT_URLENCODED,
+            'method'  => 'POST',
         ]);
 
         $data = [
@@ -163,10 +163,10 @@ class RequestTest extends \yii\tests\TestCase
     {
         $request = Yii::createObject([
             '__class' => Request::class,
-            'client' => new Client(),
-            'format' => Client::FORMAT_URLENCODED,
-            'method' => 'POST',
-            'url' => 'http://domain.com/test',
+            'client'  => new Client(),
+            'format'  => Client::FORMAT_URLENCODED,
+            'method'  => 'POST',
+            'url'     => 'http://domain.com/test',
         ]);
 
         $data = [
@@ -174,7 +174,7 @@ class RequestTest extends \yii\tests\TestCase
         ];
         $request->setParams($data);
 
-        $expectedResult = <<<EOL
+        $expectedResult = <<<'EOL'
 POST http://domain.com/test
 Content-Type: application/x-www-form-urlencoded; charset=UTF-8
 
@@ -185,10 +185,10 @@ EOL;
         // @see https://github.com/yiisoft/yii2-httpclient/issues/70
         $request = Yii::createObject([
             '__class' => Request::class,
-            'client' => new Client(),
-            'format' => Client::FORMAT_URLENCODED,
-            'method' => 'POST',
-            'url' => 'http://domain.com/test',
+            'client'  => new Client(),
+            'format'  => Client::FORMAT_URLENCODED,
+            'method'  => 'POST',
+            'url'     => 'http://domain.com/test',
         ]);
         $request->setParams($data);
         $request->addFileContent('some-file', 'some content');
@@ -199,7 +199,8 @@ EOL;
     }
 
     /**
-     * Data provider for [[testGetFullUrl()]]
+     * Data provider for [[testGetFullUrl()]].
+     *
      * @return array test data
      */
     public function dataProviderGetFullUrl()
@@ -208,7 +209,7 @@ EOL;
             [
                 'http://some-domain.com',
                 'test/url',
-                'http://some-domain.com/test/url'
+                'http://some-domain.com/test/url',
             ],
             [
                 'http://some-domain.com',
@@ -218,7 +219,7 @@ EOL;
             [
                 'http://some-domain.com',
                 ['test/url', 'param1' => 'name1'],
-                'http://some-domain.com/test/url?param1=name1'
+                'http://some-domain.com/test/url?param1=name1',
             ],
             [
                 'http://some-domain.com?base-param=base',
@@ -233,17 +234,17 @@ EOL;
             [
                 'http://some-domain.com/',
                 '/test/url',
-                'http://some-domain.com/test/url'
+                'http://some-domain.com/test/url',
             ],
             [
                 'http://some-domain.com/',
                 'test/url',
-                'http://some-domain.com/test/url'
+                'http://some-domain.com/test/url',
             ],
             [
                 'http://some-domain.com',
                 '/test/url',
-                'http://some-domain.com/test/url'
+                'http://some-domain.com/test/url',
             ],
         ];
     }
@@ -253,7 +254,7 @@ EOL;
      * @dataProvider dataProviderGetFullUrl
      *
      * @param string $baseUrl
-     * @param mixed $url
+     * @param mixed  $url
      * @param string $expectedFullUrl
      */
     public function testGetFullUrl($baseUrl, $url, $expectedFullUrl)
@@ -262,8 +263,8 @@ EOL;
         $client->baseUrl = $baseUrl;
         $request = Yii::createObject([
             '__class' => Request::class,
-            'client' => $client
-        ]);        
+            'client'  => $client,
+        ]);
 
         $request->setUrl($url);
         $this->assertEquals($expectedFullUrl, $request->getUri()->__toString());
@@ -276,10 +277,10 @@ EOL;
     {
         $request = Yii::createObject([
             '__class' => Request::class,
-            'client' => new Client(),
-            'format' => Client::FORMAT_URLENCODED,
-            'method' => 'POST',
-            'url' => 'http://domain.com/test',
+            'client'  => new Client(),
+            'format'  => Client::FORMAT_URLENCODED,
+            'method'  => 'POST',
+            'url'     => 'http://domain.com/test',
         ]);
 
         $data = [
@@ -287,7 +288,7 @@ EOL;
         ];
         $request->setParams($data);
 
-        $expectedResult = <<<EOL
+        $expectedResult = <<<'EOL'
 POST http://domain.com/test
 Content-Type: application/x-www-form-urlencoded; charset=UTF-8
 
@@ -300,7 +301,7 @@ EOL;
         ];
         $request->setParams($data);
 
-        $expectedResult = <<<EOL
+        $expectedResult = <<<'EOL'
 POST http://domain.com/test
 Content-Type: application/x-www-form-urlencoded; charset=UTF-8
 
@@ -313,9 +314,9 @@ EOL;
     {
         $request = Yii::createObject([
             '__class' => Request::class,
-            'client' => [
+            'client'  => [
                 '__class' => Client::class,
-                'baseUrl' => '/api'
+                'baseUrl' => '/api',
             ],
             'method' => 'POST',
         ]);
@@ -326,16 +327,16 @@ EOL;
         $request->addFileContent('data4', 'file2', ['fileName' => 'file2.txt', 'mimeType' => 'text/plain']);
         $this->assertEquals([
             'data2' => [
-                'content' => 'data2=456',
+                'content'     => 'data2=456',
                 'contentType' => 'text/plain',
             ],
             'data3' => [
-                'content' => 'file1',
+                'content'  => 'file1',
                 'fileName' => 'file1.txt',
-                'mimeType' => 'application/octet-stream'
+                'mimeType' => 'application/octet-stream',
             ],
             'data4' => [
-                'content' => 'file2',
+                'content'  => 'file2',
                 'fileName' => 'file2.txt',
                 'mimeType' => 'text/plain',
             ],
@@ -344,11 +345,11 @@ EOL;
         $request->prepare();
 
         $requestString = $request->toString();
-        $this->assertTrue((bool)preg_match('~Content-Type: multipart/form-data; boundary=([\w-]+)\n.*\1~s', $requestString, $matches));
+        $this->assertTrue((bool) preg_match('~Content-Type: multipart/form-data; boundary=([\w-]+)\n.*\1~s', $requestString, $matches));
         $boundary = $matches[1];
         $parts = explode("--$boundary", $requestString);
         $this->assertCount(6, $parts);
-        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<PART1
+        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<'PART1'
 
 Content-Disposition: form-data; name="data1"
 
@@ -356,7 +357,7 @@ data1=123
 
 PART1
         ), $parts[1]);
-        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<PART2
+        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<'PART2'
 
 Content-Disposition: form-data; name="data2"
 Content-Type: text/plain
@@ -365,7 +366,7 @@ data2=456
 
 PART2
         ), $parts[2]);
-        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<PART2
+        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<'PART2'
 
 Content-Disposition: form-data; name="data3"; filename="file1.txt"
 Content-Type: application/octet-stream
@@ -374,7 +375,7 @@ file1
 
 PART2
         ), $parts[3]);
-        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<PART2
+        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<'PART2'
 
 Content-Disposition: form-data; name="data4"; filename="file2.txt"
 Content-Type: text/plain
@@ -392,9 +393,9 @@ PART2
     {
         $request = Yii::createObject([
             '__class' => Request::class,
-            'client' => [
+            'client'  => [
                 '__class' => Client::class,
-                'baseUrl' => '/api'
+                'baseUrl' => '/api',
             ],
             'method' => 'POST',
         ]);
@@ -420,13 +421,13 @@ PART2
     {
         $request = Yii::createObject([
             '__class' => Request::class,
-            'client' => Yii::createObject([
+            'client'  => Yii::createObject([
                 '__class' => Client::class,
                 'baseUrl' => 'http://php.net',
             ]),
             'format' => Client::FORMAT_URLENCODED,
             'method' => 'GET',
-            'url' => 'docs.php',
+            'url'    => 'docs.php',
             'params' => [
                 'example' => '123',
             ],
@@ -442,9 +443,9 @@ PART2
         $request = new Request();
         $request->setCookies([
             [
-                'name' => 'some',
+                'name'  => 'some',
                 'value' => 'foo',
-            ]
+            ],
         ]);
         $headers = $request->composeHeaderLines();
         $this->assertEquals(['Cookie: some=foo'], $headers);
@@ -452,9 +453,9 @@ PART2
         // @see https://github.com/yiisoft/yii2-httpclient/issues/118
         $request->setCookies([
             [
-                'name' => "invalid/name",
+                'name'  => 'invalid/name',
                 'value' => 'foo',
-            ]
+            ],
         ]);
         $headers = $request->composeHeaderLines();
         $this->assertEquals(['Cookie: invalid/name=foo'], $headers);

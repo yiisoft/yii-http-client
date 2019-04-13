@@ -2,15 +2,16 @@
 
 namespace yii\httpclient\tests\unit;
 
+use yii\helpers\Yii;
+use yii\http\Cookie;
 use yii\httpclient\Client;
 use yii\httpclient\Response;
-use yii\http\Cookie;
-use yii\helpers\Yii;
 
 class ResponseTest extends \yii\tests\TestCase
 {
     /**
-     * Data provider for [[testDetectFormatByHeaders()]]
+     * Data provider for [[testDetectFormatByHeaders()]].
+     *
      * @return array test data
      */
     public function dataProviderDetectFormatByHeaders()
@@ -18,15 +19,15 @@ class ResponseTest extends \yii\tests\TestCase
         return [
             [
                 'application/x-www-form-urlencoded',
-                Client::FORMAT_URLENCODED
+                Client::FORMAT_URLENCODED,
             ],
             [
                 'application/json',
-                Client::FORMAT_JSON
+                Client::FORMAT_JSON,
             ],
             [
                 'text/xml',
-                Client::FORMAT_XML
+                Client::FORMAT_XML,
             ],
         ];
     }
@@ -58,7 +59,8 @@ class ResponseTest extends \yii\tests\TestCase
     }
 
     /**
-     * Data provider for [[testDetectFormatByContent()]]
+     * Data provider for [[testDetectFormatByContent()]].
+     *
      * @return array test data
      */
     public function dataProviderDetectFormatByContent()
@@ -66,23 +68,23 @@ class ResponseTest extends \yii\tests\TestCase
         return [
             [
                 'name1=value1&name2=value2',
-                Client::FORMAT_URLENCODED
+                Client::FORMAT_URLENCODED,
             ],
             [
                 '{"name1":"value1", "name2":"value2"}',
-                Client::FORMAT_JSON
+                Client::FORMAT_JSON,
             ],
             [
                 '<?xml version="1.0" encoding="utf-8"?><root></root>',
-                Client::FORMAT_XML
+                Client::FORMAT_XML,
             ],
             [
                 'access_token=begin|end',
-                Client::FORMAT_URLENCODED
+                Client::FORMAT_URLENCODED,
             ],
             [
                 'some-plain-string',
-                null
+                null,
             ],
         ];
     }
@@ -104,8 +106,8 @@ class ResponseTest extends \yii\tests\TestCase
     {
         $response = Yii::createObject([
             '__class' => Response::class,
-            'client' => new Client(),
-            'format' => Client::FORMAT_URLENCODED,
+            'client'  => new Client(),
+            'format'  => Client::FORMAT_URLENCODED,
         ]);
 
         $content = 'name=value';
@@ -168,7 +170,8 @@ class ResponseTest extends \yii\tests\TestCase
     }
 
     /**
-     * Data provider for [[testIsOk()]]
+     * Data provider for [[testIsOk()]].
+     *
      * @return array test data.
      */
     public function dataProviderIsOk()
@@ -184,7 +187,7 @@ class ResponseTest extends \yii\tests\TestCase
      * @dataProvider dataProviderIsOk
      * @depends testGetStatusCode
      *
-     * @param int $statusCode
+     * @param int  $statusCode
      * @param bool $isOk
      */
     public function testIsOk($statusCode, $isOk)
@@ -231,11 +234,11 @@ class ResponseTest extends \yii\tests\TestCase
     {
         $response = new Response();
         $response->setHeaders([
-            'content-type' => 'text/html; charset=UTF-8'
+            'content-type' => 'text/html; charset=UTF-8',
         ]);
         $response->getBody()->write('<html>Content</html>');
 
-        $expectedResult = <<<EOL
+        $expectedResult = <<<'EOL'
 Content-Type: text/html; charset=UTF-8
 
 <html>Content</html>

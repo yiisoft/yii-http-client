@@ -4,10 +4,9 @@ namespace yii\httpclient\tests\unit;
 
 use yii\helpers\FileHelper;
 use yii\httpclient\Client;
-use yii\httpclient\Request;
+use yii\httpclient\ClientEvent;
 use yii\httpclient\RequestEvent;
 use yii\httpclient\Response;
-use yii\httpclient\ClientEvent;
 
 /**
  * This is the base class for HTTP message transport unit tests.
@@ -95,8 +94,8 @@ abstract class TransportTestCase extends \yii\tests\TestCase
             ->setMethod('GET')
             ->setUrl('search.php')
             ->setParams([
-                'show' => 'quickref',
-                'pattern' => 'array_merge'
+                'show'    => 'quickref',
+                'pattern' => 'array_merge',
             ]);
 
         $response = $request->setOptions([
@@ -134,12 +133,12 @@ abstract class TransportTestCase extends \yii\tests\TestCase
             ->setUrl('docs.php');
 
         $beforeSendEvent = null;
-        $request->on(RequestEvent::BEFORE_SEND, function(RequestEvent $event) use (&$beforeSendEvent) {
+        $request->on(RequestEvent::BEFORE_SEND, function (RequestEvent $event) use (&$beforeSendEvent) {
             $beforeSendEvent = $event;
         });
 
         $afterSendEvent = null;
-        $request->on(RequestEvent::AFTER_SEND, function(RequestEvent $event) use (&$afterSendEvent) {
+        $request->on(RequestEvent::AFTER_SEND, function (RequestEvent $event) use (&$afterSendEvent) {
             $afterSendEvent = $event;
         });
 
@@ -167,12 +166,12 @@ abstract class TransportTestCase extends \yii\tests\TestCase
             ->setUrl('docs.php');
 
         $beforeSendEvent = null;
-        $client->on(ClientEvent::BEFORE_SEND, function(RequestEvent $event) use (&$beforeSendEvent) {
+        $client->on(ClientEvent::BEFORE_SEND, function (RequestEvent $event) use (&$beforeSendEvent) {
             $beforeSendEvent = $event;
         });
 
         $afterSendEvent = null;
-        $client->on(ClientEvent::AFTER_SEND, function(RequestEvent $event) use (&$afterSendEvent) {
+        $client->on(ClientEvent::AFTER_SEND, function (RequestEvent $event) use (&$afterSendEvent) {
             $afterSendEvent = $event;
         });
 
@@ -197,12 +196,12 @@ abstract class TransportTestCase extends \yii\tests\TestCase
         $client->baseUrl = 'http://php.net';
 
         $beforeSendUrls = [];
-        $client->on(ClientEvent::BEFORE_SEND, function(RequestEvent $event) use (&$beforeSendUrls) {
+        $client->on(ClientEvent::BEFORE_SEND, function (RequestEvent $event) use (&$beforeSendUrls) {
             $beforeSendUrls[] = $event->request->getUri()->__toString();
         });
 
         $afterSendUrls = [];
-        $client->on(ClientEvent::AFTER_SEND, function(RequestEvent $event) use (&$afterSendUrls) {
+        $client->on(ClientEvent::AFTER_SEND, function (RequestEvent $event) use (&$afterSendUrls) {
             $afterSendUrls[] = $event->request->getUri()->__toString();
         });
 
@@ -217,8 +216,8 @@ abstract class TransportTestCase extends \yii\tests\TestCase
         $responses = $client->batchSend($requests);
 
         $expectedUrls = [
-            $client->baseUrl . '/docs.php',
-            $client->baseUrl . '/support.php',
+            $client->baseUrl.'/docs.php',
+            $client->baseUrl.'/support.php',
         ];
         $this->assertEquals($expectedUrls, $beforeSendUrls);
         $this->assertEquals($expectedUrls, $afterSendUrls);
@@ -244,13 +243,13 @@ abstract class TransportTestCase extends \yii\tests\TestCase
         }
 
         $dn = [
-            'countryName' => 'GB',
-            'stateOrProvinceName' => 'State',
-            'localityName' => 'SomewhereCity',
-            'organizationName' => 'MySelf',
+            'countryName'            => 'GB',
+            'stateOrProvinceName'    => 'State',
+            'localityName'           => 'SomewhereCity',
+            'organizationName'       => 'MySelf',
             'organizationalUnitName' => 'Whatever',
-            'commonName' => 'mySelf',
-            'emailAddress' => 'user@domain.com'
+            'commonName'             => 'mySelf',
+            'emailAddress'           => 'user@domain.com',
         ];
         $passphrase = '1234';
 
@@ -264,8 +263,8 @@ abstract class TransportTestCase extends \yii\tests\TestCase
         $filePath = $this->app->getAlias('@runtime');
         FileHelper::createDirectory($filePath);
 
-        $privateKeyFilename = $filePath . DIRECTORY_SEPARATOR . 'private.pem';
-        $publicKeyFilename = $filePath . DIRECTORY_SEPARATOR . 'public.pem';
+        $privateKeyFilename = $filePath.DIRECTORY_SEPARATOR.'private.pem';
+        $publicKeyFilename = $filePath.DIRECTORY_SEPARATOR.'public.pem';
 
         file_put_contents($publicKeyFilename, $publicKey);
         file_put_contents($privateKeyFilename, $privateKey);
@@ -276,8 +275,8 @@ abstract class TransportTestCase extends \yii\tests\TestCase
             ->setMethod('GET')
             ->setUrl('docs.php')
             ->setOptions([
-                'sslLocalCert' => $publicKeyFilename,
-                'sslLocalPk' => $privateKeyFilename,
+                'sslLocalCert'  => $publicKeyFilename,
+                'sslLocalPk'    => $privateKeyFilename,
                 'sslPassphrase' => $passphrase,
             ])
             ->send();

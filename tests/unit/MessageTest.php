@@ -2,10 +2,10 @@
 
 namespace yii\httpclient\tests\unit;
 
-use yii\http\MemoryStream;
-use yii\httpclient\Message;
 use yii\http\Cookie;
 use yii\http\CookieCollection;
+use yii\http\MemoryStream;
+use yii\httpclient\Message;
 
 class MessageTest extends \yii\tests\TestCase
 {
@@ -96,7 +96,7 @@ class MessageTest extends \yii\tests\TestCase
 
         $cookies = [
             [
-                'name' => 'test',
+                'name'   => 'test',
                 'domain' => 'test.com',
             ],
         ];
@@ -109,7 +109,7 @@ class MessageTest extends \yii\tests\TestCase
 
         $additionalCookies = [
             [
-                'name' => 'additional',
+                'name'   => 'additional',
                 'domain' => 'additional.com',
             ],
         ];

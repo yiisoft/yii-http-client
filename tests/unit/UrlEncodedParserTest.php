@@ -2,8 +2,8 @@
 
 namespace yii\httpclient\tests\unit;
 
-use yii\httpclient\UrlEncodedParser;
 use yii\httpclient\Response;
+use yii\httpclient\UrlEncodedParser;
 
 class UrlEncodedParserTest extends \yii\tests\TestCase
 {
@@ -19,4 +19,4 @@ class UrlEncodedParserTest extends \yii\tests\TestCase
         $parser = new UrlEncodedParser();
         $this->assertEquals($data, $parser->parse($response));
     }
-} 
+}

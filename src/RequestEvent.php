@@ -1,6 +1,7 @@
 <?php
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -13,6 +14,7 @@ use yii\base\Event;
  * RequestEvent represents the event parameter used for an request events.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0.1
  */
 class RequestEvent extends Event
@@ -33,7 +35,7 @@ class RequestEvent extends Event
     public $request;
     /**
      * @var Response|null related HTTP response.
-     * This field will be filled only in case some response is already received, e.g. after request is sent.
+     *                    This field will be filled only in case some response is already received, e.g. after request is sent.
      */
     public $response;
 
@@ -47,15 +49,15 @@ class RequestEvent extends Event
         parent::__construct($name);
         $this->request = $request;
         $this->response = $response;
-    }    
+    }
 
     public static function beforeSend($request) : self
     {
-        return new static(static::BEFORE_SEND, $request);        
+        return new static(static::BEFORE_SEND, $request);
     }
 
     public static function afterSend($request, $response) : self
     {
-        return new static(static::AFTER_SEND, $request, $response);        
+        return new static(static::AFTER_SEND, $request, $response);
     }
 }

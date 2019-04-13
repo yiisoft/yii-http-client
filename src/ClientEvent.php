@@ -1,6 +1,7 @@
 <?php
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -13,6 +14,7 @@ use yii\base\Event;
  * ClientEvent represents the event parameter used for a client events.
  *
  * @author Fabrizio Caldarelli <fabrizio.caldarelli@gmail.com>
+ *
  * @since 3.0.0
  */
 class ClientEvent extends RequestEvent
