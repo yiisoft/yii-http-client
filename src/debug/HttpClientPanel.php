@@ -10,7 +10,7 @@ namespace yii\httpclient\debug;
 use yii\debug\Panel;
 use yii\helpers\Yii;
 use yii\httpclient\Client;
-use yii\log\Logger;
+use Yii\Log\Logger;
 
 /**
  * Debugger panel that collects and displays HTTP requests performed.

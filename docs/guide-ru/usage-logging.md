@@ -14,7 +14,7 @@ return [
             // ...
             'targets' => [
                 [
-                    '__class' => yii\log\FileTarget::class,
+                    '__class' => Yii\Log\FileTarget::class,
                     'logFile' => '@runtime/logs/http-request.log',
                     'categories' => ['yii\httpclient\*'],
                 ],
