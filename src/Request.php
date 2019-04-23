@@ -10,11 +10,11 @@ namespace yii\httpclient;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
-use Yiisoft\Arrays\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\Yii;
 use yii\http\MemoryStream;
 use yii\http\Uri;
+use Yiisoft\Arrays\ArrayHelper;
 
 /**
  * Request represents HTTP request.

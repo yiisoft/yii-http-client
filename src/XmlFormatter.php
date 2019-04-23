@@ -14,9 +14,9 @@ use DOMText;
 use SimpleXMLElement;
 use yii\base\Arrayable;
 use yii\base\BaseObject;
-use Yiisoft\Strings\StringHelper;
 use yii\helpers\Yii;
 use yii\http\MemoryStream;
+use Yiisoft\Strings\StringHelper;
 
 /**
  * XmlFormatter formats HTTP message as XML.
