@@ -14,7 +14,7 @@ use DOMText;
 use SimpleXMLElement;
 use yii\base\Arrayable;
 use yii\base\BaseObject;
-use yii\helpers\StringHelper;
+use Yiisoft\Strings\StringHelper;
 use yii\helpers\Yii;
 use yii\http\MemoryStream;
 

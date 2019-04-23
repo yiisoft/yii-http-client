@@ -10,7 +10,7 @@ namespace yii\httpclient;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\Yii;
 use yii\http\MemoryStream;

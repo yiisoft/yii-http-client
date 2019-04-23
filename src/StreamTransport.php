@@ -8,8 +8,8 @@
 
 namespace yii\httpclient;
 
-use yii\helpers\ArrayHelper;
-use yii\helpers\Inflector;
+use Yiisoft\Arrays\ArrayHelper;
+use Yiisoft\Helpers\InflectorHelper;
 use yii\helpers\Yii;
 
 /**
@@ -96,7 +96,7 @@ class StreamTransport extends Transport
                 $section = 'ssl';
                 $key = substr($key, 3);
             }
-            $key = Inflector::underscore($key);
+            $key = InflectorHelper::underscore($key);
             $contextOptions[$section][$key] = $value;
         }
 
