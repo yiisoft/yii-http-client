@@ -10,7 +10,7 @@ namespace yii\httpclient;
 
 use yii\helpers\Yii;
 use Yiisoft\Arrays\ArrayHelper;
-use Yiisoft\Helpers\InflectorHelper;
+use Yiisoft\Strings\Inflector;
 
 /**
  * StreamTransport sends HTTP messages using [Streams](http://php.net/manual/en/book.stream.php).
@@ -96,7 +96,7 @@ class StreamTransport extends Transport
                 $section = 'ssl';
                 $key = substr($key, 3);
             }
-            $key = InflectorHelper::underscore($key);
+            $key = Inflector::underscore($key);
             $contextOptions[$section][$key] = $value;
         }
 
