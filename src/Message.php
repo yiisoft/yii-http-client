@@ -120,9 +120,11 @@ class Message extends Component implements MessageInterface
             if (is_array($this->_cookies)) {
                 foreach ($this->_cookies as $cookie) {
                     if (!is_object($cookie)) {
-                        $cookie = Yii::createObject(array_merge(
+                        $cookie = Yii::createObject(
+                            array_merge(
                             $cookie,
-                            ['__class' => Cookie::class])
+                            ['__class' => Cookie::class]
+                        )
                         );
                     }
                     $cookieCollection->add($cookie);
@@ -146,9 +148,11 @@ class Message extends Component implements MessageInterface
         $cookieCollection = $this->getCookies();
         foreach ($cookies as $cookie) {
             if (!is_object($cookie)) {
-                $cookie = Yii::createObject(array_merge(
+                $cookie = Yii::createObject(
+                    array_merge(
                     $cookie,
-                    ['__class' => Cookie::class])
+                    ['__class' => Cookie::class]
+                )
                 );
             }
             $cookieCollection->add($cookie);

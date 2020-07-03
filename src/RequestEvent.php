@@ -51,12 +51,12 @@ class RequestEvent extends Event
         $this->response = $response;
     }
 
-    public static function beforeSend($request) : self
+    public static function beforeSend($request): self
     {
         return new static(static::BEFORE_SEND, $request);
     }
 
-    public static function afterSend($request, $response) : self
+    public static function afterSend($request, $response): self
     {
         return new static(static::AFTER_SEND, $request, $response);
     }

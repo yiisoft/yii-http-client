@@ -349,7 +349,10 @@ EOL;
         $boundary = $matches[1];
         $parts = explode("--$boundary", $requestString);
         $this->assertCount(6, $parts);
-        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<'PART1'
+        $this->assertEquals(str_replace(
+            PHP_EOL,
+            "\r\n",
+            <<<'PART1'
 
 Content-Disposition: form-data; name="data1"
 
@@ -357,7 +360,10 @@ data1=123
 
 PART1
         ), $parts[1]);
-        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<'PART2'
+        $this->assertEquals(str_replace(
+            PHP_EOL,
+            "\r\n",
+            <<<'PART2'
 
 Content-Disposition: form-data; name="data2"
 Content-Type: text/plain
@@ -366,7 +372,10 @@ data2=456
 
 PART2
         ), $parts[2]);
-        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<'PART2'
+        $this->assertEquals(str_replace(
+            PHP_EOL,
+            "\r\n",
+            <<<'PART2'
 
 Content-Disposition: form-data; name="data3"; filename="file1.txt"
 Content-Type: application/octet-stream
@@ -375,7 +384,10 @@ file1
 
 PART2
         ), $parts[3]);
-        $this->assertEquals(str_replace(PHP_EOL, "\r\n", <<<'PART2'
+        $this->assertEquals(str_replace(
+            PHP_EOL,
+            "\r\n",
+            <<<'PART2'
 
 Content-Disposition: form-data; name="data4"; filename="file2.txt"
 Content-Type: text/plain

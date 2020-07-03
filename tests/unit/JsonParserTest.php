@@ -33,13 +33,14 @@ class JsonParserTest extends \yii\tests\TestCase
                 'userId'                => '17',
                 'registryDate'          => '2016-08-19 21:54:40',
                 'contractedServiceData' => [
-                        'id'     => 6,
-                        'status' => true,
-                    ],
+                    'id'     => 6,
+                    'status' => true,
+                ],
             ],
             'errors' => null,
         ];
-        $response->getBody()->write(<<<'JSON'
+        $response->getBody()->write(
+            <<<'JSON'
 {
   "code": 412,
   "httpMessage": "Precondition Failed",
