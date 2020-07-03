@@ -6,6 +6,9 @@
     <br>
 </p>
 
+> This package is abandoned. Please use [existing PSR-18 implementations](https://packagist.org/providers/psr/http-client-implementation).
+
+
 This extension provides the HTTP client for the [Yii framework](http://www.yiiframework.com).
 
 For license information check the [LICENSE](LICENSE.md)-file.
